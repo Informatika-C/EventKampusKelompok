@@ -14,6 +14,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Login Page',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -58,6 +59,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Hi, Admins'),
@@ -74,7 +76,13 @@ class HomePage extends StatelessWidget {
               ),
               color: Colors.transparent,
             ),
-            child: ClipRRect(child: Icon(Icons.person)),
+            child: Image(
+              height: 30,
+              width: 30,
+              image: AssetImage("assets/images/tekno.png",
+              
+              ),
+            ),
           ),
         ],
       ),

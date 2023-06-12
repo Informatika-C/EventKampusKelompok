@@ -13,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Login Page',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Sen',
       ),
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
         '/': (context) => LoginPage(),
         '/home': (context) => NavBar(),
@@ -151,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (isLoginForm) {
                             final result = login();
-                            // navigateToPage('/home');
+                            navigateToPage('/home');
                           } else {
                             navigateToPage('/login');
                           }
