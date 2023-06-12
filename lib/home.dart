@@ -47,13 +47,8 @@ class HomePage extends StatelessWidget {
 
   final List<String> menuNames = [
     "User's",
-    "Mail",
-    "User's",
-    "Folder",
-    "Chart",
-    "Add",
-    "Expo",
-    "Log Out",
+    "Event",
+    "History",
   ];
 
   @override
@@ -108,12 +103,13 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+              
               GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 8,
+                itemCount: 3,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
+                  crossAxisCount: 3,
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return MenuCard(
@@ -157,25 +153,15 @@ class HomePage extends StatelessWidget {
   }
 
   IconData getIcon(int index) {
-    switch (index % 8) {
+    switch (index % 3) {
       case 0:
         return Icons.person;
       case 1:
-        return Icons.mail;
+        return Icons.calendar_today_rounded;
       case 2:
-        return Icons.people_alt;
-      case 3:
-        return Icons.folder;
-      case 4:
-        return Icons.bar_chart;
-      case 5:
-        return Icons.playlist_add;
-      case 6:
-        return Icons.event_note_rounded;
-      case 7:
-        return Icons.logout_outlined;
+        return Icons.history;
       default:
-        return Icons.restaurant_menu;
+        return Icons.person;
     }
   }
 
@@ -190,21 +176,6 @@ class HomePage extends StatelessWidget {
         break;
       case 2:
         route = '/menu3';
-        break;
-      case 3:
-        route = '/menu4';
-        break;
-      case 4:
-        route = '/menu5';
-        break;
-      case 5:
-        route = '/menu6';
-        break;
-      case 6:
-        route = '/menu7';
-        break;
-      case 7:
-        route = '/menu8';
         break;
       default:
         route = '/home';
@@ -229,7 +200,7 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(16),
@@ -240,7 +211,7 @@ class MenuCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(6),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

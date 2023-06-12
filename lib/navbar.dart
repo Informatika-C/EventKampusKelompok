@@ -35,7 +35,6 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
   final List<Widget> _children = [
     Home(),
     Test(),
-    Update(),
     Setting(),
   ];
 
@@ -69,11 +68,7 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
               text: "Event",
             ),
             GButton(
-              icon: Icons.search,
-              text: "Search",
-            ),
-            GButton(
-              icon: Icons.settings,
+              icon: Icons.person,
               text: "Profile",
             ),
           ]),

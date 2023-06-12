@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (isLoginForm) {
                             final result = login();
-                            // navigateToPage('/home');
+                            navigateToPage('/home');
                           } else {
                             navigateToPage('/login');
                           }
