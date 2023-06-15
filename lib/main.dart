@@ -10,7 +10,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await StorageService().init();
   final String? accessToken = sharedPreferences.getString('access_token');
-  if (accessToken != null && Token.checkTokenExpired(accessToken) == false) {
+  if (accessToken != null && accessToken.isNotEmpty) {
+    if (Token.checkTokenExpired(accessToken)) {
+      sharedPreferences.remove('access_token');
+      runApp(const MyApp());
+    }
     runApp(const MyApp(isAuthenticated: true));
   } else {
     runApp(const MyApp());

@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         final bool result =
             await sharedPref.setString('access_token', data['access_token']);
         if (result == true) {
-          Get.to(NavBar());
+          Get.offAll(NavBar());
         } else {
           throw Exception('Gagal menyimpan data');
         }
