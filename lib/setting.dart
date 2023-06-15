@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tekno_expo/screen/login.dart';
 import 'package:tekno_expo/setting-parts.dart';
+import 'package:tekno_expo/utils/storage_service.dart';
+import 'package:tekno_expo/utils/url.dart';
+import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
 class Setting extends StatelessWidget {
   @override
@@ -24,6 +31,24 @@ class P extends StatefulWidget {
 }
 
 class _PState extends State<P> with SingleTickerProviderStateMixin {
+  void logout() async {
+    try {
+      final SharedPreferences sharedPref = await StorageService().init();
+      final bool result = await sharedPref.remove('access_token');
+      if (result == true) {
+        Get.offAll(LoginPage());
+      } else {
+        throw Exception('Gagal Logout');
+      }
+    } catch (error) {
+      Fluttertoast.showToast(
+        msg: error.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+  }
+
   int activeExpandedIndex = -1;
 
   void toggleExpanded(int expandedIndex) {
@@ -270,7 +295,9 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
           isExpanded: true,
         ),
       TextButton(
-        onPressed: () {},
+        onPressed: () {
+          logout();
+        },
         child: ListTile(
           leading: Icon(
             Icons.logout_outlined,
