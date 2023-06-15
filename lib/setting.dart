@@ -25,6 +25,10 @@ class P extends StatefulWidget {
 
 class _PState extends State<P> with SingleTickerProviderStateMixin {
   int activeExpandedIndex = -1;
+  bool showTabEvent = true;
+  bool showTabSetting = false;
+  Color Tabs1 = Color.fromARGB(255, 139, 0, 0);
+  Color Tabs2 = Color.fromARGB(255, 255, 255, 255);
 
   void toggleExpanded(int expandedIndex) {
     setState(() {
@@ -35,9 +39,6 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
       }
     });
   }
-
-  bool showTabEvent = true;
-  bool showTabSetting = false;
 
   @override
   Widget build(BuildContext context) {
@@ -323,19 +324,58 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                             ),
                             Positioned(
                               bottom: 0,
-                              right: 0,
+                              right: 5,
                               child: Container(
+                                width: 30,
                                 decoration: BoxDecoration(
                                   color: Colors.black,
                                   shape: BoxShape.circle,
                                 ),
                                 child: IconButton(
+                                  iconSize: 15,
                                   icon: Icon(
                                     Icons.edit,
                                     color: Colors.white,
                                   ),
                                   onPressed: () {
-                                    // Aksi yang dijalankan ketika ikon edit di tekan
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Ubah Foto Profil '),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text('Pilih foto profil'),
+                                              SizedBox(height: 10),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  // Aksi yang dijalankan ketika tombol di tekan
+                                                  // Tambahkan kode untuk memilih file gambar
+                                                },
+                                                child: Text('Pilih Gambar'),
+                                              ),
+                                            ],
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                // Aksi yang dijalankan ketika tombol "Cancel" di tekan
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                // Aksi yang dijalankan ketika tombol "Upload" di tekan
+                                                // Tambahkan kode untuk mengunggah file gambar
+                                              },
+                                              child: Text('Upload'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                 ),
                               ),
@@ -402,11 +442,13 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
-                          color: Colors.white,
+                          color: Tabs1,
                           onPressed: () {
                             setState(() {
                               showTabEvent = true;
                               showTabSetting = false;
+                              Tabs1 = Color.fromARGB(255, 139, 0, 0);
+                              Tabs2 = Color.fromARGB(255, 255, 255, 255);
                             });
                           },
                           icon: Icon(Icons.event),
@@ -415,11 +457,13 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                           width: 5,
                         ),
                         IconButton(
-                          color: Colors.white,
+                          color: Tabs2,
                           onPressed: () {
                             setState(() {
                               showTabEvent = false;
                               showTabSetting = true;
+                              Tabs1 = Color.fromARGB(255, 255, 255, 255);
+                              Tabs2 = Color.fromARGB(255, 139, 0, 0);
                             });
                           },
                           icon: Icon(Icons.settings),
