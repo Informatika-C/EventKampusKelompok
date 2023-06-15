@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (error) {
       Fluttertoast.showToast(
-        msg: error.toString(),
+        msg: "Login Gagal",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
       );
