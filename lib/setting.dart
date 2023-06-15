@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tekno_expo/setting-parts.dart';
 
 class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.senTextTheme(
@@ -21,35 +23,276 @@ class P extends StatefulWidget {
   _PState createState() => _PState();
 }
 
-class _PState extends State<P> {
-  String name = 'John Doe';
-  String email = 'johndoe@example.com';
-  String phone = '+1 123 456 7890';
+class _PState extends State<P> with SingleTickerProviderStateMixin {
+  int activeExpandedIndex = -1;
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
-
-  void updateProfile() {
+  void toggleExpanded(int expandedIndex) {
     setState(() {
-      name = nameController.text;
-      email = emailController.text;
-      phone = phoneController.text;
+      if (activeExpandedIndex == expandedIndex) {
+        activeExpandedIndex = -1;
+      } else {
+        activeExpandedIndex = expandedIndex;
+      }
     });
-    Navigator.pop(
-        context); // Kembali ke halaman profil setelah memperbarui profil
   }
+
+  bool showTabEvent = true;
+  bool showTabSetting = false;
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> TabEvent = [
+      Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Nama Event",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Cabang Lomba",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Tanggal Mulai",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Tanggal Penyisihan",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Tanggal Selesai",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ":  Gebyar",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      ":  Design Web",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      ":  10-5-2023",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      ":  15-5-2023",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      ":  20-5-2023",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    ];
+
+    final List<Widget> TabSetting = [
+      TextButton(
+        onPressed: () {
+          setState(() {
+            toggleExpanded(1);
+          });
+        },
+        child: ListTile(
+          leading: Icon(Icons.account_circle),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Account Settings',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Icon(
+                activeExpandedIndex == 1
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_right,
+              ),
+            ],
+          ),
+        ),
+      ),
+      if (activeExpandedIndex == 1)
+        AccountParts(
+          isExpanded: true,
+        ),
+      TextButton(
+        onPressed: () {
+          setState(() {
+            toggleExpanded(2);
+          });
+        },
+        child: ListTile(
+          leading: Icon(Icons.notifications),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Notification Settings',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Icon(
+                activeExpandedIndex == 2
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_right,
+              ),
+            ],
+          ),
+        ),
+      ),
+      if (activeExpandedIndex == 2)
+        NotificationParts(
+          isExpanded: true,
+        ),
+      TextButton(
+        onPressed: () {
+          setState(() {
+            toggleExpanded(3);
+          });
+        },
+        child: ListTile(
+          leading: Icon(Icons.security),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Security Settings',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Icon(
+                activeExpandedIndex == 3
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_right,
+              ),
+            ],
+          ),
+        ),
+      ),
+      if (activeExpandedIndex == 3)
+        SecurityParts(
+          isExpanded: true,
+        ),
+      TextButton(
+        onPressed: () {},
+        child: ListTile(
+          leading: Icon(
+            Icons.logout_outlined,
+            color: Color(0xffd40808),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Log Out',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffd40808),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Page'),
@@ -58,158 +301,166 @@ class _PState extends State<P> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                CircleAvatar(
-                  radius: 80,
-                  backgroundImage: AssetImage('assets/images/ffd.jpeg'),
-                ),
-                SizedBox(height: 16),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text(
-                    'Name',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text(
-                    'Email',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    email,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.phone),
-                  title: Text(
-                    'Phone',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    phone,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Edit Profile'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextField(
-                                controller: nameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Name',
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: SizedBox(
+                                width: 180,
+                                child: Image.asset(
+                                  'assets/images/ffd.jpeg',
+                                  fit: BoxFit.fill,
                                 ),
                               ),
-                              TextField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                ),
-                              ),
-                              TextField(
-                                controller: phoneController,
-                                decoration: InputDecoration(
-                                  labelText: 'Phone',
-                                ),
-                              ),
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Cancel'),
                             ),
-                            ElevatedButton(
-                              onPressed: () {
-                                updateProfile();
-                              },
-                              child: Text('Save'),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    // Aksi yang dijalankan ketika ikon edit di tekan
+                                  },
+                                ),
+                              ),
                             ),
                           ],
-                        );
-                      },
-                    );
-                  },
-                  child: Text('Edit Profile'),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                              'Name',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            subtitle: Text(
+                              "john doe",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            title: Text(
+                              'Email',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            subtitle: Text(
+                              "johndoe@gmail.com",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 16),
-                ListTile(
-                  leading: Icon(Icons.notifications),
-                  title: Text(
-                    'Notification Settings',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+              ),
+              Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(right: 15, left: 15),
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color.fromARGB(255, 0, 32, 58),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              showTabEvent = true;
+                              showTabSetting = false;
+                            });
+                          },
+                          icon: Icon(Icons.event),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        IconButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              showTabEvent = false;
+                              showTabSetting = true;
+                            });
+                          },
+                          icon: Icon(Icons.settings),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text(
-                    'Account Settings',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(right: 15, left: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Visibility(
+                            visible: showTabEvent,
+                            child: Column(
+                              children: TabEvent,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Visibility(
+                            visible: showTabSetting,
+                            child: Column(
+                              children: TabSetting,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.security),
-                  title: Text(
-                    'Security Settings',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
