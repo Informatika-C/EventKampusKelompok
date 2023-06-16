@@ -11,7 +11,7 @@ Future<void> main() async {
   final String? accessToken = sharedPreferences.getString('access_token');
   if (accessToken != null) {
     if (Token.checkTokenExpired(accessToken) == false) {
-      var result = await sharedPreferences.remove('access_token');
+      var result = await sharedPreferences.clear();
       if (result == true) {
         runApp(const MyApp());
       }
