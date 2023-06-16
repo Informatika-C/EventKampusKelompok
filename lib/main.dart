@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Sen',
       ),
-      home: _isAuthenticated ? LoginPage() : NavBar(),
+      home: _isAuthenticated ? NavBar() : LoginPage(),
     );
   }
 }
