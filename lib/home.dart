@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
         if (!homePageController.isLoading.value) {
           return HomePage();
         }
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       }),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tekno_expo/controller/Account_controller.dart';
 
 class AccountParts extends StatelessWidget {
+  AccountController accountController = Get.find();
+
   final bool isExpanded;
 
   AccountParts({required this.isExpanded});
@@ -9,9 +13,7 @@ class AccountParts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 60),
-      decoration: BoxDecoration(
-        color: Color.fromARGB(131, 222, 222, 222)
-      ),
+      decoration: BoxDecoration(color: Color.fromARGB(131, 222, 222, 222)),
       child: Column(
         children: [
           ListTile(
@@ -90,7 +92,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Email: JohnDoe@gmail.com',
+                  'Email: ${accountController.user.value.email}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -244,10 +246,8 @@ class _NotificationPartsState extends State<NotificationParts> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 60),    
-      decoration: BoxDecoration(
-        color: Color.fromARGB(131, 222, 222, 222)
-      ),  
+      margin: EdgeInsets.only(left: 60),
+      decoration: BoxDecoration(color: Color.fromARGB(131, 222, 222, 222)),
       child: Column(
         children: [
           ListTile(
@@ -288,9 +288,7 @@ class SecurityParts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 60),
-      decoration: BoxDecoration(
-        color: Color.fromARGB(131, 222, 222, 222)
-      ),
+      decoration: BoxDecoration(color: Color.fromARGB(131, 222, 222, 222)),
       child: Column(
         children: [
           ListTile(
