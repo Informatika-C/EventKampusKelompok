@@ -11,7 +11,6 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       title: 'Contoh Bottom Navigation Bar Flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
