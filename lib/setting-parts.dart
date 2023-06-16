@@ -9,9 +9,7 @@ class AccountParts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 60),
-      decoration: BoxDecoration(
-        color: Color.fromARGB(131, 222, 222, 222)
-      ),
+      decoration: BoxDecoration(color: Color.fromARGB(131, 222, 222, 222)),
       child: Column(
         children: [
           ListTile(
@@ -19,7 +17,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Name: John Doe',
+                  'Name : John Doe',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -89,12 +87,17 @@ class AccountParts extends StatelessWidget {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Email: JohnDoe@gmail.com',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                Container(
+                  width: 180,
+                  child: Text(
+                    'Email  : JohnDoe@gmail.com',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 TextButton(
@@ -159,7 +162,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Phone: +1 234 567 890',
+                  'Phone  : +1 234 567 890',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -244,10 +247,8 @@ class _NotificationPartsState extends State<NotificationParts> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 60),    
-      decoration: BoxDecoration(
-        color: Color.fromARGB(131, 222, 222, 222)
-      ),  
+      margin: EdgeInsets.only(left: 60),
+      decoration: BoxDecoration(color: Color.fromARGB(131, 222, 222, 222)),
       child: Column(
         children: [
           ListTile(
@@ -288,9 +289,7 @@ class SecurityParts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 60),
-      decoration: BoxDecoration(
-        color: Color.fromARGB(131, 222, 222, 222)
-      ),
+      decoration: BoxDecoration(color: Color.fromARGB(131, 222, 222, 222)),
       child: Column(
         children: [
           ListTile(

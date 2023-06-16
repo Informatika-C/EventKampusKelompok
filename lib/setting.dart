@@ -135,30 +135,40 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      ":  Gebyar",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                    Container(
+                      width: 150,
+                      child: Text(
+                        ":  Gebyar Islami",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: 150,
+                      child: Text(
+                        ":  Design Web",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     Text(
-                      ":  Design Web",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      ":  10-5-2023",
+                      ":  10 May 2024",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -169,7 +179,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                       height: 20,
                     ),
                     Text(
-                      ":  15-5-2023",
+                      ":  15 May 2024",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -180,7 +190,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                       height: 20,
                     ),
                     Text(
-                      ":  20-5-2023",
+                      ":  20 May 2024",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -338,9 +348,9 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         Stack(
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
                               child: SizedBox(
-                                width: 180,
+                                width: 170,
                                 child: Image.asset(
                                   'assets/images/ffd.jpeg',
                                   fit: BoxFit.fill,
@@ -416,16 +426,21 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                             title: Text(
                               'Name',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            subtitle: Text(
-                              "john doe",
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
+                            subtitle: Container(
+                              width: 160,
+                              child: Text(
+                                "John Doe",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ),
@@ -433,16 +448,21 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                             title: Text(
                               'Email',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            subtitle: Text(
-                              "johndoe@gmail.com",
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
+                            subtitle: Container(
+                              width: 160,
+                              child: Text(
+                                "johndoe@gmail.com",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ),

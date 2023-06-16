@@ -45,8 +45,13 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
           labelStyle: TextStyle(
             fontWeight: FontWeight.bold,
           ),
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorPadding:
+              EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
+          indicatorWeight: 5.0,
+          indicatorColor: Color(0xFFd40808),
           labelColor: Colors.white,
-          unselectedLabelColor: Color.fromRGBO(155, 155, 166, 1),
+          unselectedLabelColor: Color.fromRGBO(147, 147, 156, 1),
           tabs: [
             Tab(
               text: 'Academic',
@@ -63,6 +68,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
         children: [
           //Tab akademic
           Container(
+            margin: EdgeInsets.all(6),
             child: Center(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -76,8 +82,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         (index) => Stack(
                           children: [
                             Container(
-                              height: 280,
-                              width: 170,
+                              height: 260,
+                              width: 160,
                               margin: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 10),
                               decoration: BoxDecoration(
@@ -103,8 +109,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               right: 6,
                               child: GestureDetector(
                                   child: Container(
-                                    height: 222,
-                                    width: 170,
+                                    height: 210,
+                                    width: 150,
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(240, 152, 25, 1),
                                       borderRadius: BorderRadius.circular(10),
@@ -140,28 +146,31 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                                   }),
                             ),
                             Positioned(
-                              top: 240,
+                              top: 225,
                               left: 13,
                               right: 6,
                               bottom: 0,
                               child: Column(
                                 children: [
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       'Desain Web',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white),
                                     ),
                                   ),
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       '24 May 2024',
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontSize: 12,
+                                          color: Colors.yellowAccent),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -173,6 +182,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         ),
                       ),
                     ),
+                    SizedBox(width: 5),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: List.generate(
@@ -180,8 +190,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         (index) => Stack(
                           children: [
                             Container(
-                              height: 280,
-                              width: 170,
+                              height: 260,
+                              width: 160,
                               margin: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 10),
                               decoration: BoxDecoration(
@@ -207,8 +217,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               right: 6,
                               child: GestureDetector(
                                   child: Container(
-                                    height: 222,
-                                    width: 170,
+                                    height: 210,
+                                    width: 150,
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(240, 152, 25, 1),
                                       borderRadius: BorderRadius.circular(10),
@@ -244,28 +254,31 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                                   }),
                             ),
                             Positioned(
-                              top: 240,
+                              top: 225,
                               left: 13,
                               right: 6,
                               bottom: 0,
                               child: Column(
                                 children: [
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       'Seminar Pendidikan',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white),
                                     ),
                                   ),
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       '04 June 2024',
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontSize: 12,
+                                          color: Colors.yellowAccent),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -284,6 +297,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
           ),
           //Tab none akademic
           Container(
+            margin: EdgeInsets.all(6),
             child: Center(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -297,8 +311,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         (index) => Stack(
                           children: [
                             Container(
-                              height: 280,
-                              width: 170,
+                              height: 260,
+                              width: 160,
                               margin: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 10),
                               decoration: BoxDecoration(
@@ -324,8 +338,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               right: 6,
                               child: GestureDetector(
                                   child: Container(
-                                    height: 222,
-                                    width: 170,
+                                    height: 210,
+                                    width: 150,
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(240, 152, 25, 1),
                                       borderRadius: BorderRadius.circular(10),
@@ -361,28 +375,31 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                                   }),
                             ),
                             Positioned(
-                              top: 240,
+                              top: 225,
                               left: 13,
                               right: 6,
                               bottom: 0,
                               child: Column(
                                 children: [
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       'Desain Web',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white),
                                     ),
                                   ),
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       '24 May 2024',
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontSize: 12,
+                                          color: Colors.yellowAccent),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -394,6 +411,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         ),
                       ),
                     ),
+                    SizedBox(width: 5),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: List.generate(
@@ -401,8 +419,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                         (index) => Stack(
                           children: [
                             Container(
-                              height: 280,
-                              width: 170,
+                              height: 260,
+                              width: 160,
                               margin: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 10),
                               decoration: BoxDecoration(
@@ -428,8 +446,8 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               right: 6,
                               child: GestureDetector(
                                   child: Container(
-                                    height: 222,
-                                    width: 170,
+                                    height: 210,
+                                    width: 150,
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(240, 152, 25, 1),
                                       borderRadius: BorderRadius.circular(10),
@@ -465,28 +483,31 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                                   }),
                             ),
                             Positioned(
-                              top: 240,
+                              top: 225,
                               left: 13,
                               right: 6,
                               bottom: 0,
                               child: Column(
                                 children: [
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       'Seminar Pendidikan',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white),
                                     ),
                                   ),
                                   Container(
-                                    width: 160,
+                                    width: 150,
                                     child: Text(
                                       '04 June 2024',
                                       style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                          fontSize: 12,
+                                          color: Colors.yellowAccent),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
