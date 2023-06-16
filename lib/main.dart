@@ -17,6 +17,8 @@ Future<void> main() async {
       }
     }
     runApp(const MyApp(isAuthenticated: true));
+  } else {
+    runApp(const MyApp());
   }
   runApp(const MyApp());
 }
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Sen',
       ),
-      home: _isAuthenticated ? NavBar() : LoginPage(),
+      home: _isAuthenticated ? LoginPage() : NavBar(),
     );
   }
 }
