@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'navbar.dart';
-import 'menu/menu1.dart';
+// import 'menu/menu1.dart';
 import 'menu/menu2.dart';
 import 'menu/menu3.dart';
 import 'menu/menu4.dart';
@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/home': (context) => NavBar(),
-        '/menu1': (context) => Menu1Page(),
+        // '/menu1': (context) => Menu1Page(),
         '/menu2': (context) => Menu2Page(),
         '/menu3': (context) => Menu3Page(),
         '/menu4': (context) => Menu4Page(),
@@ -52,12 +52,19 @@ class HomePage extends StatelessWidget {
     "History",
   ];
 
+  final List<String> textItems = [
+    'Hi, Admins',
+    'Kamu belum ikut event apapun',
+    // 'Item 3',
+    // 'Item 4',
+    // 'Item 5',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hi, Admins'),
+        title: Text('Tekno Expo'),
         backgroundColor: Color(0xFF001431),
         actions: [
           Container(
@@ -74,8 +81,8 @@ class HomePage extends StatelessWidget {
             child: Image(
               height: 30,
               width: 30,
-              image: AssetImage("assets/images/tekno.png",
-              
+              image: AssetImage(
+                "assets/images/tekno.png",
               ),
             ),
           ),
@@ -86,18 +93,33 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               Container(
+                // padding: EdgeInsets.symmetric(vertical: 10),
                 height: 200,
-                child: Center(
-                  child: Text(
-                    'Banner',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
+                width: double.infinity,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
                   ),
+                  items: carouselImages.map((image) {
+                    return Container(
+                      // margin: EdgeInsets.symmetric(horizontal: 4),
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        ),
+                        child: Image.asset(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
                 decoration: BoxDecoration(
-                  color: Color(0xFF001431),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(1),
@@ -109,15 +131,67 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
-              
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Color(0xFF001431),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CarouselSlider(
+                          options: CarouselOptions(
+                            height: 40,
+                            enableInfiniteScroll: true,
+                            scrollPhysics: NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            autoPlay: true,
+                          ),
+                          items: textItems.map((text) {
+                            return Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.only(left: 18),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  text,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 0.8,
+                  childAspectRatio: 1,
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return MenuCard(
@@ -130,28 +204,214 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
-                height: 30,
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                ),
-                items: carouselImages.map((image) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
+              Padding(
+                padding: EdgeInsets.all(18),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          reverse: true,
+                          height: 70,
+                          enableInfiniteScroll: true,
+                          autoPlay: true,
+                          // autoPlayInterval: Duration(milliseconds: 500),
+                        ),
+                        items: [
+                          Container(
+                            color: Colors.red,
+                            child: Center(
+                              child: Text(
+                                'Carousel 1',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.blue,
+                            child: Center(
+                              child: Text(
+                                'Carousel 2',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.green,
+                            child: Center(
+                              child: Text(
+                                'Carousel 3',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                }).toList(),
+                    Expanded(
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          height: 70,
+                          enableInfiniteScroll: true,
+                          autoPlay: true,
+                        ),
+                        items: [
+                          Container(
+                            color: Colors.orange,
+                            child: Center(
+                              child: Text(
+                                'Carousel A',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.purple,
+                            child: Center(
+                              child: Text(
+                                'Carousel B',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.yellow,
+                            child: Center(
+                              child: Text(
+                                'Carousel C',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/tekno.png',
+                          width: 25.0,
+                          height: 25.0,
+                        ),
+                        SizedBox(width: 7),
+                        Text(
+                          'Campus Expo',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Tempatnya Teknologi disini 📌',
+                          style: TextStyle(
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Ada banyak perlombaan bergensi seperti Pemrograman dan lainnya.',
+                          style: TextStyle(fontSize: 13.0),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                padding: EdgeInsets.all(4),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: carouselImages.map((imagePath) {
+                    return Container(
+                      width: 340.0,
+                      height: 200.0,
+                      margin: EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(14.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(1),
+                            offset: Offset(0, 4),
+                            spreadRadius: 2,
+                            blurRadius: 12,
+                          )
+                        ],
+                        image: DecorationImage(
+                          image: AssetImage(imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              Container(
+                height: 300,
+                width: 370,
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        child: Image.asset(
+                          'assets/images/depok.jpeg',
+                          height: 210,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          'Keterangan Gambar',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -208,7 +468,7 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.all(25),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(16),
@@ -216,10 +476,11 @@ class MenuCard extends StatelessWidget {
         ),
       ),
       color: color,
+      elevation: 7,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.all(2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
