@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'navbar.dart';
+import 'event.dart';
 // import 'menu/menu1.dart';
 import 'menu/menu2.dart';
 import 'menu/menu3.dart';
@@ -96,7 +97,7 @@ class HomePage extends StatelessWidget {
                 child: CarouselSlider(
                   options: CarouselOptions(
                     viewportFraction: 1,
-                    enlargeCenterPage: true,
+                    // enlargeCenterPage:  true,
                     autoPlay: true,
                   ),
                   items: carouselImages.map((image) {
@@ -156,6 +157,9 @@ class HomePage extends StatelessWidget {
                             scrollPhysics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             autoPlay: true,
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 400),
+                            autoPlayInterval: Duration(seconds: 2),
                           ),
                           items: textItems.map((text) {
                             return Container(
@@ -202,7 +206,7 @@ class HomePage extends StatelessWidget {
                 },
               ),
               Padding(
-                padding: EdgeInsets.all(18),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
                     Expanded(
@@ -304,8 +308,55 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
+              Container(
+                padding: EdgeInsets.all(10),
+                height: 300,
+                width: double.infinity,
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        child: Image.asset(
+                          'assets/images/detik.jpeg',
+                          height: 210,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Seminar Pengusaha Muda',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'jakvkavj b svhasbvkajvbanksjvasjva aksjvbashasmn ',
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.only(top: 15, left: 15, right: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -318,7 +369,7 @@ class HomePage extends StatelessWidget {
                         ),
                         SizedBox(width: 7),
                         Text(
-                          'Campus Expo',
+                          'Terbaru',
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
@@ -326,22 +377,50 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Tempatnya Teknologi disini 📌',
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.bold,
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      // width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Masih hangat nih  🙌',
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Container(
+                                width: 260,
+                                child: Text(
+                                  'Yang terbaik ada disini, yuk pilih yang kamu minati !',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 13.0),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Text(
-                          'Ada banyak perlombaan bergensi seperti Pemrograman dan lainnya.',
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                      ],
+                          Container(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                minimumSize: Size(70.0, 40.0),
+                                primary: Color(0xFFD40808),
+                              ),
+                              onPressed: () {
+                                // Aksi yang dijalankan saat tombol ditekan
+                              },
+                              child: Text('Lainnya'),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -352,23 +431,64 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   children: carouselImages.map((imagePath) {
                     return Container(
-                      width: 340.0,
-                      height: 200.0,
-                      margin: EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(14.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(1),
-                            offset: Offset(0, 4),
-                            spreadRadius: 2,
-                            blurRadius: 12,
-                          )
-                        ],
-                        image: DecorationImage(
-                          image: AssetImage(imagePath),
-                          fit: BoxFit.cover,
+                      width: 170.0,
+                      height: 250.0,
+                      margin: EdgeInsets.only(bottom: 5, left: 12, right: 12),
+                      child: Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(14.0),
+                                child: Image.asset(
+                                  imagePath,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: double.infinity,
+                                color: Color.fromRGBO(55, 56, 58, 1),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 12),
+                                child: Container(
+                                  // padding: EdgeInsets.only(left: 10),
+                                  height: 30,
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Seminar Pendidikan afbafgfdd adadabasa',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        '24 May 2024',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -376,8 +496,9 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(10),
                 height: 300,
-                width: 370,
+                width: double.infinity,
                 child: Card(
                   elevation: 10,
                   shape: RoundedRectangleBorder(
@@ -398,12 +519,269 @@ class HomePage extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(
-                          'Keterangan Gambar',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Seminar Pengusaha Muda',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'jakvkavj b svhasbvkajvbanksjvasjva aksjvbashasmn ',
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/tekno.png',
+                          width: 25.0,
+                          height: 25.0,
+                        ),
+                        SizedBox(width: 7),
+                        Text(
+                          'Tekno',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      // width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Pilihan non akademik  📌',
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Container(
+                                width: 260,
+                                child: Text(
+                                  'Temukan banyak perlombaan Olahraga, Seni, dan banyak lagi!',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 13.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                minimumSize: Size(70.0, 40.0),
+                                primary: Color(0xFFD40808),
+                              ),
+                              onPressed: () {
+                                // Aksi yang dijalankan saat tombol ditekan
+                              },
+                              child: Text('Lainnya'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                padding: EdgeInsets.all(4),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: carouselImages.map((imagePath) {
+                    return Container(
+                      width: 350.0,
+                      height: 200.0,
+                      margin: EdgeInsets.only(bottom: 5, left: 12, right: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(14.0),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(3, 4),
+                            spreadRadius: -3,
+                            blurRadius: 5,
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                          )
+                        ],
+                        image: DecorationImage(
+                          image: AssetImage(imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/tekno.png',
+                          width: 25.0,
+                          height: 25.0,
+                        ),
+                        SizedBox(width: 7),
+                        Text(
+                          'FSIP',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      // width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Pilihan akademik  📚',
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Container(
+                                width: 260,
+                                child: Text(
+                                  'Yang terbaik ada disini, yuk pilih yang kamu minati !',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 13.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                minimumSize: Size(70.0, 40.0),
+                                primary: Color(0xFFD40808),
+                              ),
+                              onPressed: () {
+                                // Aksi yang dijalankan saat tombol ditekan
+                              },
+                              child: Text('Lainnya'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                padding: EdgeInsets.all(4),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: carouselImages.map((imagePath) {
+                    return Container(
+                      width: 350.0,
+                      height: 200.0,
+                      margin: EdgeInsets.only(bottom: 5, left: 12, right: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(14.0),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(3, 4),
+                            spreadRadius: -3,
+                            blurRadius: 5,
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                          )
+                        ],
+                        image: DecorationImage(
+                          image: AssetImage(imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                height: 300,
+                width: double.infinity,
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        child: Image.asset(
+                          'assets/images/depok.jpeg',
+                          height: 210,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Kepo 2020',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'kaisn vkajkhsvbasuho sbvjausvk askhagsicaow',
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
