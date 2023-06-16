@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tekno_expo/utils/storage_service.dart';
 import 'navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'utils/token.dart';
@@ -8,12 +7,14 @@ import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPreferences = await StorageService().init();
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   final String? accessToken = sharedPreferences.getString('access_token');
-  if (accessToken != null && accessToken.isNotEmpty) {
-    if (Token.checkTokenExpired(accessToken)) {
-      sharedPreferences.remove('access_token');
-      runApp(const MyApp());
+  if (accessToken != null) {
+    if (Token.checkTokenExpired(accessToken) == false) {
+      var result = await sharedPreferences.remove('access_token');
+      if (result == true) {
+        runApp(const MyApp());
+      }
     }
     runApp(const MyApp(isAuthenticated: true));
   } else {

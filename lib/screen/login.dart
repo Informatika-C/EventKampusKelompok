@@ -5,7 +5,6 @@ import 'package:tekno_expo/screen/register.dart';
 import 'dart:convert';
 import 'package:tekno_expo/utils/url.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tekno_expo/utils/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
@@ -38,7 +37,9 @@ class _LoginPageState extends State<LoginPage> {
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        final SharedPreferences sharedPref = await StorageService().init();
+        final SharedPreferences sharedPref =
+            await SharedPreferences.getInstance();
+
         final bool result =
             await sharedPref.setString('access_token', data['access_token']);
         if (result == true) {
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (error) {
       Fluttertoast.showToast(
-        msg: "Login Gagal",
+        msg: error.toString(),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
       );

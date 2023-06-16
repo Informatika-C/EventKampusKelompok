@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:tekno_expo/utils/url.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tekno_expo/utils/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:tekno_expo/navbar.dart';
@@ -41,7 +40,8 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       final data = jsonDecode(response.body);
       if (response.statusCode == 201) {
-        final SharedPreferences sharedPref = await StorageService().init();
+        final SharedPreferences sharedPref =
+            await SharedPreferences.getInstance();
         final bool result =
             await sharedPref.setString('access_token', data['access_token']);
         if (result == true) {
@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } catch (error) {
       Fluttertoast.showToast(
-        msg: 'Register gagal',
+        msg: error.toString(),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
       );

@@ -4,9 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tekno_expo/screen/login.dart';
 import 'package:tekno_expo/setting-parts.dart';
-import 'package:tekno_expo/utils/storage_service.dart';
-import 'package:tekno_expo/utils/url.dart';
-import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
 class Setting extends StatelessWidget {
@@ -33,8 +30,9 @@ class P extends StatefulWidget {
 class _PState extends State<P> with SingleTickerProviderStateMixin {
   void logout() async {
     try {
-      final SharedPreferences sharedPref = await StorageService().init();
-      final bool result = await sharedPref.remove('access_token');
+      final SharedPreferences sharedPref =
+          await SharedPreferences.getInstance();
+      final bool result = await sharedPref.clear();
       if (result == true) {
         Get.offAll(LoginPage());
       } else {
