@@ -17,8 +17,6 @@ Future<void> main() async {
       }
     }
     runApp(const MyApp(isAuthenticated: true));
-  } else {
-    runApp(const MyApp());
   }
   runApp(const MyApp());
 }
