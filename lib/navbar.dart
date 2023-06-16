@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'setting.dart';
 import 'home.dart';
-import 'test.dart';
+import 'event.dart';
 import 'routes/update.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +11,6 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       title: 'Contoh Bottom Navigation Bar Flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -36,7 +35,7 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
 
   final List<Widget> _children = [
     Home(),
-    Test(),
+    Event(),
     Setting(),
   ];
 

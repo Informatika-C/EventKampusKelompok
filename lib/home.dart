@@ -55,9 +55,6 @@ class HomePage extends StatelessWidget {
   final List<String> textItems = [
     'Hi, Admins',
     'Kamu belum ikut event apapun',
-    // 'Item 3',
-    // 'Item 4',
-    // 'Item 5',
   ];
 
   @override
