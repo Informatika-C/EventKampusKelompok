@@ -14,11 +14,14 @@ Future<void> main() async {
       var result = await sharedPreferences.clear();
       if (result == true) {
         runApp(const MyApp());
+        return;
       }
     }
     runApp(const MyApp(isAuthenticated: true));
+    return;
   } else {
     runApp(const MyApp());
+    return;
   }
 }
 
