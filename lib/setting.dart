@@ -22,6 +22,18 @@ class P extends StatefulWidget {
 }
 
 class _PState extends State<P> {
+  List<Item> _items = [
+    Item(
+        headerValue: 'Dropdown 1',
+        expandedValue: ['Menu 1', 'Menu 2', 'Menu 3']),
+    Item(
+        headerValue: 'Dropdown 2',
+        expandedValue: ['Menu 4', 'Menu 5', 'Menu 6']),
+    Item(
+        headerValue: 'Dropdown 3',
+        expandedValue: ['Menu 7', 'Menu 8', 'Menu 9']),
+  ];
+
   String name = 'John Doe';
   String email = 'johndoe@example.com';
   String phone = '+1 123 456 7890';
@@ -60,152 +72,108 @@ class _PState extends State<P> {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                SizedBox(height: 16),
-                CircleAvatar(
-                  radius: 80,
-                  backgroundImage: AssetImage('assets/images/ffd.jpeg'),
+                Column(
+                  children: [
+                    Container(
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundImage: AssetImage('assets/images/ffd.jpeg'),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 16),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text(
-                    'Name',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text(
-                    'Email',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    email,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.phone),
-                  title: Text(
-                    'Phone',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  subtitle: Text(
-                    phone,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Edit Profile'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextField(
-                                controller: nameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Name',
-                                ),
-                              ),
-                              TextField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                ),
-                              ),
-                              TextField(
-                                controller: phoneController,
-                                decoration: InputDecoration(
-                                  labelText: 'Phone',
-                                ),
-                              ),
-                            ],
+                Expanded(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          'Name',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Cancel'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                updateProfile();
-                              },
-                              child: Text('Save'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: Text('Edit Profile'),
-                ),
-                SizedBox(height: 16),
-                ListTile(
-                  leading: Icon(Icons.notifications),
-                  title: Text(
-                    'Notification Settings',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                        ),
+                        subtitle: Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Email',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        subtitle: Text(
+                          email,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text(
-                    'Account Settings',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.security),
-                  title: Text(
-                    'Security Settings',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                Center(
+                  child: ElevatedButton(
+                    child: Text('Open Modal'),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListView(
+                                  children: _items.map<Widget>((Item item) {
+                                    return ExpansionPanelList(
+                                      elevation: 1,
+                                      expandedHeaderPadding: EdgeInsets.all(0),
+                                      expansionCallback:
+                                          (int index, bool isExpanded) {
+                                        setState(() {
+                                          item.isExpanded = !isExpanded;
+                                        });
+                                      },
+                                      children: [
+                                        ExpansionPanel(
+                                          headerBuilder: (BuildContext context,
+                                              bool isExpanded) {
+                                            return ListTile(
+                                              title: Text(item.headerValue),
+                                            );
+                                          },
+                                          body: Column(
+                                            children: item.expandedValue
+                                                .map<Widget>((String menu) {
+                                              return ListTile(
+                                                title: Text(menu),
+                                              );
+                                            }).toList(),
+                                          ),
+                                          isExpanded: item.isExpanded,
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ],
@@ -215,4 +183,12 @@ class _PState extends State<P> {
       ),
     );
   }
+}
+
+class Item {
+  Item({required this.headerValue, required this.expandedValue});
+
+  String headerValue;
+  List<String> expandedValue;
+  bool isExpanded = false;
 }
