@@ -14,7 +14,7 @@ Peojek ini menggunakan CI4 sebagai Api, dan di hosting menggunakan Msoft Azure.
 dan sebagai proteksi, kami menggunakan token untuk membatasi kegiatan masing" pengguna.
 [Link Api](https://github.com/Informatika-C/api-event-kampus)
 
-[Halaman Utama](https://drive.google.com/file/d/1-7zPTDkVf9QhbrLcTt_N7jHfMYKDFWo9/view?usp=drive_link)
+![Halaman Utama](https://github.com/Informatika-C/EventKampusKelompok/blob/main/IMG-20230618-WA0000.jpg)
 ###
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
