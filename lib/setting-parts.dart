@@ -22,7 +22,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Name: John Doe',
+                  'Name: ${Get.find<UserController>().user.value.nama}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -162,7 +162,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Phone: +1 234 567 890',
+                  'Phone: ${Get.find<UserController>().user.value.noHp}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

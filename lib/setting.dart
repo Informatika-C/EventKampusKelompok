@@ -433,7 +433,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             subtitle: Text(
-                              "john doe",
+                              '${Get.find<UserController>().user.value.nama}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black,
