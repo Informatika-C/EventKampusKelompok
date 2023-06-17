@@ -1,13 +1,21 @@
-# tekno_expo
+# EVENT KAMPUS
+Projek Pemrograman Web Event Kampus Kelompok 2
 
-A new Flutter project.
+## ANGGOTA
+- Adib Ulinuha El Majid
+- Aditya Muhammad Fadhilah Umar
+- Farhan Nopransyah Putra
+- Nur Fadila
+- Ricky Fajar Adi Putra
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## NOTE
+Peojek ini menggunakan CI4 sebagai Api, dan di hosting menggunakan Msoft Azure.
+dan sebagai proteksi, kami menggunakan token untuk membatasi kegiatan masing" pengguna.
+[Link Api](https://github.com/Informatika-C/api-event-kampus)
 
-A few resources to get you started if this is your first Flutter project:
-
+[Halaman Utama](https://drive.google.com/file/d/1-7zPTDkVf9QhbrLcTt_N7jHfMYKDFWo9/view?usp=drive_link)
+###
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
