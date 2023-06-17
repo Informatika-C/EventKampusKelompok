@@ -323,7 +323,7 @@ class HomePage extends StatelessWidget {
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(10)),
                         child: Image.network(
-                          eventAcademicList[0]['gambar_banner'],
+                          eventAcademicList[1]['gambar_banner'],
                           height: 210,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -335,14 +335,14 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              eventAcademicList[0]['nama_event'],
+                              eventAcademicList[1]['nama_event'],
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              eventAcademicList[0]['keterangan'],
+                              eventAcademicList[1]['keterangan'],
                               style: TextStyle(
                                 fontSize: 13,
                               ),
