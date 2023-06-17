@@ -80,10 +80,11 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
                   icon: Icons.person,
                   text: "Profile",
                 ),
-                GButton(
-                  icon: Icons.add,
-                  text: "Add",
-                ),
+                if (userController.user.value.role == 'admin')
+                  GButton(
+                    icon: Icons.add,
+                    text: "Add Event",
+                  ),
               ]),
         );
       } else {

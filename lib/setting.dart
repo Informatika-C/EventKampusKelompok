@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:tekno_expo/controller/account_controller.dart';
 import 'package:tekno_expo/controller/user_controller.dart';
 import 'package:tekno_expo/controller/homepage_controller.dart';
+import 'package:tekno_expo/controller/event_controller.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -49,6 +50,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
       Get.delete<HomePageController>();
       Get.delete<AccountController>();
       Get.delete<UserController>();
+      Get.delete<EventController>();
 
       if (result == true) {
         Get.offAll(LoginPage());

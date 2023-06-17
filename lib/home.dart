@@ -49,7 +49,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> carouselImages = homePageController.getListBanner;
-    final List<String> eventImages = homePageController.getListBanner;
     final List eventList = homePageController.getListEvent;
     final List eventAcademicList = homePageController.getListEvenAcademic;
     final List eventNonAcademicList = homePageController.getListEvenNonAcademic;
@@ -470,7 +469,7 @@ class HomePage extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                       Text(
-                                        '24 May 2024',
+                                        event['tanggal'],
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.yellowAccent,
