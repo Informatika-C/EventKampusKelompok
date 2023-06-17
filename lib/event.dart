@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tekno_expo/event-parts.dart';
+import 'package:tekno_expo/controller/event_controller.dart';
+import 'package:get/get.dart';
 
-class Event extends StatelessWidget {
+class Event extends StatefulWidget {
+  @override
+  State<Event> createState() => _EventState();
+}
+
+class _EventState extends State<Event> {
+  EventController eventController = Get.put(EventController());
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,16 +19,30 @@ class Event extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Sen',
       ),
-      home: EventPage(),
+      home: Obx(() {
+        if (!eventController.getIsLoading) {
+          return EventPage();
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
     );
   }
 }
 
 class EventPage extends StatelessWidget {
-  final List<String> cardData =
-      List.generate(10, (index) => 'Card ${index + 1}');
-  final List<String> cardData2 =
-      List.generate(10, (index) => 'New Card ${index + 1}');
+  EventController eventController = Get.find();
+
+  final List<String> cardData = List.generate(
+      Get.find<EventController>().getListEvenAcademic.length,
+      (index) =>
+          '${Get.find<EventController>().getListEvenAcademic[index]['nama_event']}}');
+
+  final List<String> cardData2 = List.generate(
+      Get.find<EventController>().getListEvenNonAcademic.length,
+      (index) =>
+          '${Get.find<EventController>().getListEvenNonAcademic[index]['nama_event']}}');
 
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -77,7 +100,7 @@ class EventPage extends StatelessWidget {
             ),
             itemCount: cardData.length,
             itemBuilder: (context, index) {
-              return buildCard(context, cardData[index]);
+              return buildCard(context, cardData[index], index);
             },
           ),
         ),
@@ -85,7 +108,8 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget buildCard(BuildContext context, String data) {
+  Widget buildCard(BuildContext context, String data, int index) {
+    EventController eventController = Get.find();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -147,8 +171,9 @@ class EventPage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox.fromSize(
-                      child: Image.asset(
-                        'assets/images/seminar-pendidikan.jpg',
+                      child: Image.network(
+                        eventController.getListEvenAcademic[index]
+                            ['gambar_poster'],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -167,7 +192,7 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      'Seminar Pendidikan',
+                      eventController.getListEvenAcademic[index]['nama_event'],
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -181,7 +206,7 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      '24 May 2024',
+                      eventController.getListEvenAcademic[index]['tanggal'],
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.yellowAccent,
@@ -213,9 +238,9 @@ class EventPage extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisExtent: 300,
             ),
-            itemCount: cardData.length,
+            itemCount: cardData2.length,
             itemBuilder: (context, index) {
-              return buildCard2(context, cardData2[index]);
+              return buildCard2(context, cardData2[index], index);
             },
           ),
         ),
@@ -223,7 +248,7 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget buildCard2(BuildContext context, String data) {
+  Widget buildCard2(BuildContext context, String data, int index) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -285,8 +310,9 @@ class EventPage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox.fromSize(
-                      child: Image.asset(
-                        'assets/images/desainweb.jpg',
+                      child: Image.network(
+                        eventController.getListEvenNonAcademic[index]
+                            ['gambar_poster'],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -305,7 +331,8 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      'Desain Web',
+                      eventController.getListEvenNonAcademic[index]
+                          ['nama_event'],
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -319,7 +346,7 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      '24 May 2024',
+                      eventController.getListEvenNonAcademic[index]['tanggal'],
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.yellowAccent,
