@@ -10,7 +10,7 @@ class AccountController extends GetxController {
   Rx<User> user = User().obs;
 
   bool get getIsLoading =>
-      isLoading.value && Get.find<UserController>().isLoading.value;
+      isLoading.value || Get.find<UserController>().isLoading.value;
 
   @override
   void onInit() {
