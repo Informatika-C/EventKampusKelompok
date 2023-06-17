@@ -40,13 +40,6 @@ class _HomeState extends State<Home> {
 class HomePage extends StatelessWidget {
   HomePageController homePageController = Get.find();
 
-  final List<String> carouselImages = [
-    'assets/images/1.png',
-    'assets/images/2.png',
-    'assets/images/3.png',
-    'assets/images/4.png',
-  ];
-
   final List<String> menuNames = [
     "User's",
     "Event",
@@ -60,6 +53,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> carouselImages = homePageController.getListBanner;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Tekno Expo'),
@@ -109,8 +104,8 @@ class HomePage extends StatelessWidget {
                           bottomLeft: Radius.circular(12),
                           bottomRight: Radius.circular(12),
                         ),
-                        child: Image.asset(
-                          image,
+                        child: Image(
+                          image: NetworkImage(image),
                           fit: BoxFit.cover,
                         ),
                       ),
