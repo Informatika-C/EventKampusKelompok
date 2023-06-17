@@ -55,6 +55,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<String> carouselImages = homePageController.getListBanner;
     final List<String> eventImages = homePageController.getListBanner;
+    final List eventList = homePageController.getListEvent;
+    final List eventAcademicList = homePageController.getListEvenAcademic;
+    final List eventNonAcademicList = homePageController.getListEvenNonAcademic;
 
     return Scaffold(
       appBar: AppBar(
@@ -319,8 +322,8 @@ class HomePage extends StatelessWidget {
                       ClipRRect(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(10)),
-                        child: Image.asset(
-                          'assets/images/detik.jpeg',
+                        child: Image.network(
+                          eventAcademicList[0]['gambar_banner'],
                           height: 210,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -332,14 +335,14 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Seminar Pengusaha Muda',
+                              eventAcademicList[0]['nama_event'],
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              'jakvkavj b svhasbvkajvbanksjvasjva aksjvbashasmn ',
+                              eventAcademicList[0]['keterangan'],
                               style: TextStyle(
                                 fontSize: 13,
                               ),
@@ -425,7 +428,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.all(4),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: carouselImages.map((imagePath) {
+                  children: eventList.map((event) {
                     return Container(
                       width: 170.0,
                       height: 250.0,
@@ -441,7 +444,7 @@ class HomePage extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(14.0),
                                 child: Image.network(
-                                  imagePath,
+                                  event['gambar_poster'],
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -462,7 +465,7 @@ class HomePage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Seminar Pendidikan afbafgfdd adadabasa',
+                                        event['nama_event'],
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.white,
@@ -506,8 +509,8 @@ class HomePage extends StatelessWidget {
                       ClipRRect(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(10)),
-                        child: Image.asset(
-                          'assets/images/depok.jpeg',
+                        child: Image.network(
+                          eventList[0]['gambar_banner'],
                           height: 210,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -519,14 +522,14 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Seminar Pengusaha Muda',
+                              eventList[0]['nama_event'],
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              'jakvkavj b svhasbvkajvbanksjvasjva aksjvbashasmn ',
+                              eventList[0]['keterangan'],
                               style: TextStyle(
                                 fontSize: 13,
                               ),
@@ -612,7 +615,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.all(4),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: carouselImages.map((imagePath) {
+                  children: eventNonAcademicList.map((nonAcademic) {
                     return Container(
                       width: 350.0,
                       height: 200.0,
@@ -629,7 +632,7 @@ class HomePage extends StatelessWidget {
                           )
                         ],
                         image: DecorationImage(
-                          image: NetworkImage(imagePath),
+                          image: NetworkImage(nonAcademic['gambar_banner']),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -712,7 +715,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.all(4),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: eventImages.map((imagePath) {
+                  children: eventAcademicList.map((academic) {
                     return Container(
                       width: 350.0,
                       height: 200.0,
@@ -729,7 +732,7 @@ class HomePage extends StatelessWidget {
                           )
                         ],
                         image: DecorationImage(
-                          image: NetworkImage(imagePath),
+                          image: NetworkImage(academic['gambar_banner']),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -752,8 +755,8 @@ class HomePage extends StatelessWidget {
                       ClipRRect(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(10)),
-                        child: Image.asset(
-                          'assets/images/depok.jpeg',
+                        child: Image.network(
+                          eventNonAcademicList[1]['gambar_banner'],
                           height: 210,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -765,14 +768,14 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Kepo 2020',
+                              eventNonAcademicList[1]['nama_event'],
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              'kaisn vkajkhsvbasuho sbvjausvk askhagsicaow',
+                              eventNonAcademicList[1]['keterangan'],
                               style: TextStyle(
                                 fontSize: 13,
                               ),
