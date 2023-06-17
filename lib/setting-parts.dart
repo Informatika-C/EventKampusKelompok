@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tekno_expo/controller/account_controller.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 
 class AccountParts extends StatelessWidget {
+  AccountController accountController = Get.find();
+
   final bool isExpanded;
 
   AccountParts({required this.isExpanded});
@@ -17,7 +22,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Name : John Doe',
+                  'Name: ${Get.find<UserController>().user.value.nama}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -90,7 +95,7 @@ class AccountParts extends StatelessWidget {
                 Container(
                   width: 180,
                   child: Text(
-                    'Email  : JohnDoe@gmail.com',
+                    'Email  : ${Get.find<UserController>().user.value.email}',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -162,7 +167,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Phone  : +1 234 567 890',
+                  'Phone: ${Get.find<UserController>().user.value.noHp}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

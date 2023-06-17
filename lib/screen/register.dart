@@ -21,6 +21,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
+  final _namaController = TextEditingController();
+  final _npmController = TextEditingController();
+  final _noHpController = TextEditingController();
 
   void register() async {
     final url = Uri.parse('${URL.BASE_URL}auth/register');
@@ -29,6 +32,9 @@ class _RegisterPageState extends State<RegisterPage> {
       'email': _emailController.text,
       'password': _passwordController.text,
       'password_confirm': _passwordConfirmController.text,
+      'nama': _namaController.text,
+      'npm': _npmController.text,
+      'no_hp': _noHpController.text,
     };
     try {
       setState(() {
@@ -157,6 +163,26 @@ class _RegisterPageState extends State<RegisterPage> {
                                 controller: _passwordConfirmController,
                                 decoration: const InputDecoration(
                                   labelText: 'Confirm Password',
+                                ),
+                              ),
+                              TextFormField(
+                                controller: _namaController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Nama Lengkap',
+                                ),
+                              ),
+                              TextFormField(
+                                controller: _npmController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  labelText: 'NPM',
+                                ),
+                              ),
+                              TextFormField(
+                                controller: _noHpController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  labelText: 'No HP',
                                 ),
                               ),
                               const SizedBox(height: 20),

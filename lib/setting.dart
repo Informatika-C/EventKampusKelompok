@@ -5,19 +5,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tekno_expo/screen/login.dart';
 import 'package:tekno_expo/setting-parts.dart';
 import 'package:get/get.dart';
+import 'package:tekno_expo/controller/Account_controller.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 
-class Setting extends StatelessWidget {
+class Setting extends StatefulWidget {
+  @override
+  State<Setting> createState() => _SettingState();
+}
+
+class _SettingState extends State<Setting> {
+  AccountController accountController = Get.put(AccountController());
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.senTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      home: P(),
+    return Scaffold(
+      body: Obx(() {
+        if (!accountController.getIsLoading) {
+          return P();
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
     );
   }
 }
@@ -28,6 +37,8 @@ class P extends StatefulWidget {
 }
 
 class _PState extends State<P> with SingleTickerProviderStateMixin {
+  AccountController accountController = Get.find();
+
   void logout() async {
     try {
       final SharedPreferences sharedPref =
@@ -431,16 +442,11 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                                 color: Colors.black,
                               ),
                             ),
-                            subtitle: Container(
-                              width: 160,
-                              child: Text(
-                                "John Doe",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
+                            subtitle: Text(
+                              '${Get.find<UserController>().user.value.nama}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -453,16 +459,11 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                                 color: Colors.black,
                               ),
                             ),
-                            subtitle: Container(
-                              width: 160,
-                              child: Text(
-                                "johndoe@gmail.com",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
+                            subtitle: Text(
+                              '${Get.find<UserController>().user.value.email}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
                               ),
                             ),
                           ),

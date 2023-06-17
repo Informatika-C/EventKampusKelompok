@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get/get.dart';
+import 'package:tekno_expo/controller/homePage_controller.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 import 'navbar.dart';
 import 'event.dart';
 // import 'menu/menu1.dart';
@@ -11,35 +14,32 @@ import 'menu/menu6.dart';
 import 'menu/menu7.dart';
 import 'menu/menu8.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  HomePageController homePageController = Get.put(HomePageController());
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Login Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Sen',
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomePage(),
-        '/home': (context) => NavBar(),
-        // '/menu1': (context) => Menu1Page(),
-        '/menu2': (context) => Menu2Page(),
-        '/menu3': (context) => Menu3Page(),
-        '/menu4': (context) => Menu4Page(),
-        '/menu5': (context) => Menu5Page(),
-        '/menu6': (context) => Menu6Page(),
-        '/menu7': (context) => Menu7Page(),
-        '/menu8': (context) => Menu8Page(),
-        // tambahkan rute untuk halaman lainnya
-      },
+    return Scaffold(
+      body: Obx(() {
+        if (!homePageController.getIsLoading) {
+          return HomePage();
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
+  HomePageController homePageController = Get.find();
+
   final List<String> carouselImages = [
     'assets/images/1.png',
     'assets/images/2.png',
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
   ];
 
   final List<String> textItems = [
-    'Hi, Admins',
+    'Hi, ${Get.find<UserController>().user.value.username}',
     'Kamu belum ikut event apapun',
   ];
 
@@ -809,21 +809,16 @@ class HomePage extends StatelessWidget {
   }
 
   void navigateToPage(BuildContext context, int index) {
-    String route;
     switch (index) {
       case 0:
-        route = '/menu1';
         break;
       case 1:
-        route = '/menu2';
+        Get.to(Menu2Page());
         break;
       case 2:
-        route = '/menu3';
+        Get.to(Menu3Page());
         break;
-      default:
-        route = '/home';
     }
-    Navigator.pushNamed(context, route);
   }
 }
 
