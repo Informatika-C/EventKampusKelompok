@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        if (!homePageController.isLoading.value) {
+        if (!homePageController.getIsLoading) {
           return HomePage();
         }
         return const Center(

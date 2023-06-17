@@ -20,7 +20,7 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        if (!accountController.isLoading.value) {
+        if (!accountController.getIsLoading) {
           return P();
         }
         return const Center(
