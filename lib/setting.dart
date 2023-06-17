@@ -7,6 +7,7 @@ import 'package:tekno_expo/setting-parts.dart';
 import 'package:get/get.dart';
 import 'package:tekno_expo/controller/account_controller.dart';
 import 'package:tekno_expo/controller/user_controller.dart';
+import 'package:tekno_expo/controller/homepage_controller.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -44,6 +45,11 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
       final SharedPreferences sharedPref =
           await SharedPreferences.getInstance();
       final bool result = await sharedPref.clear();
+
+      Get.delete<HomePageController>();
+      Get.delete<AccountController>();
+      Get.delete<UserController>();
+
       if (result == true) {
         Get.offAll(LoginPage());
       } else {
