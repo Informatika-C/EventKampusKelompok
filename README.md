@@ -1,6 +1,15 @@
 # EVENT KAMPUS
 Projek Pemrograman Web Event Kampus Kelompok 2
 
+## AKUN
+### Admin
+email: admin@gmail.com  
+password: katasandi
+### User
+email: user@gmail.com   
+password: orangbiasa
+
+
 ## ANGGOTA
 - Adib Ulinuha El Majid
 - Aditya Muhammad Fadhilah Umar
