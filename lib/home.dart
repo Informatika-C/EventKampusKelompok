@@ -54,6 +54,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> carouselImages = homePageController.getListBanner;
+    final List<String> eventImages = homePageController.getListBanner;
 
     return Scaffold(
       appBar: AppBar(
@@ -439,7 +440,7 @@ class HomePage extends StatelessWidget {
                             Positioned.fill(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(14.0),
-                                child: Image.asset(
+                                child: Image.network(
                                   imagePath,
                                   fit: BoxFit.cover,
                                 ),
@@ -628,7 +629,7 @@ class HomePage extends StatelessWidget {
                           )
                         ],
                         image: DecorationImage(
-                          image: AssetImage(imagePath),
+                          image: NetworkImage(imagePath),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -711,7 +712,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.all(4),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: carouselImages.map((imagePath) {
+                  children: eventImages.map((imagePath) {
                     return Container(
                       width: 350.0,
                       height: 200.0,
@@ -728,7 +729,7 @@ class HomePage extends StatelessWidget {
                           )
                         ],
                         image: DecorationImage(
-                          image: AssetImage(imagePath),
+                          image: NetworkImage(imagePath),
                           fit: BoxFit.cover,
                         ),
                       ),
