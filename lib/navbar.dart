@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'setting.dart';
 import 'home.dart';
 import 'event.dart';
+import 'addEvent.dart';
 import 'routes/update.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,6 +42,7 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
     Home(),
     Event(),
     Setting(),
+    EventForm(),
   ];
 
   void onTabTapped(int index) {
@@ -78,6 +80,11 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
                   icon: Icons.person,
                   text: "Profile",
                 ),
+                if (userController.user.value.role == 'admin')
+                  GButton(
+                    icon: Icons.add,
+                    text: "Add Event",
+                  ),
               ]),
         );
       } else {
