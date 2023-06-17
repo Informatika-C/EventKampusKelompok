@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 import 'package:tekno_expo/model/user.dart';
 
 class HomePageController extends GetxController {
@@ -8,21 +9,12 @@ class HomePageController extends GetxController {
 
   Rx<User> user = User().obs;
 
+  bool get getIsLoading =>
+      isLoading.value && Get.find<UserController>().isLoading.value;
+
   @override
   void onInit() {
-    fetchApi();
     super.onInit();
-  }
-
-  void fetchApi() async {
-    try {
-      isLoading(true);
-      user.value = await User.getUser();
-    } catch (e) {
-      isError(true);
-      errorMassage(e.toString());
-    } finally {
-      isLoading(false);
-    }
+    isLoading.value = false;
   }
 }

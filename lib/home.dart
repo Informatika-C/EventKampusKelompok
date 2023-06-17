@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:tekno_expo/controller/homePage_controller.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 import 'navbar.dart';
 // import 'menu/menu1.dart';
 import 'menu/menu2.dart';
@@ -52,7 +53,7 @@ class HomePage extends StatelessWidget {
   ];
 
   final List<String> textItems = [
-    'Hi, ${Get.find<HomePageController>().user.value.username}',
+    'Hi, ${Get.find<UserController>().user.value.username}',
     'Kamu belum ikut event apapun',
     // 'Item 3',
     // 'Item 4',

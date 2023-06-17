@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tekno_expo/controller/Account_controller.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 
 class AccountParts extends StatelessWidget {
   AccountController accountController = Get.find();
@@ -92,7 +93,7 @@ class AccountParts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Email: ${accountController.user.value.email}',
+                  'Email: ${Get.find<UserController>().user.value.email}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

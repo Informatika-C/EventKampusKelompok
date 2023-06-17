@@ -6,6 +6,7 @@ import 'package:tekno_expo/screen/login.dart';
 import 'package:tekno_expo/setting-parts.dart';
 import 'package:get/get.dart';
 import 'package:tekno_expo/controller/Account_controller.dart';
+import 'package:tekno_expo/controller/user_controller.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -449,7 +450,7 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             subtitle: Text(
-                              '${accountController.user.value.email}',
+                              '${Get.find<UserController>().user.value.email}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black,
