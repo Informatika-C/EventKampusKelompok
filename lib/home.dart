@@ -5,7 +5,6 @@ import 'package:tekno_expo/controller/homePage_controller.dart';
 import 'package:tekno_expo/controller/user_controller.dart';
 import 'navbar.dart';
 import 'event.dart';
-import 'event-parts.dart';
 // import 'menu/menu1.dart';
 import 'menu/menu2.dart';
 import 'menu/menu3.dart';
@@ -319,24 +318,14 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return BottomSheetWidget.showBottomSheet(context);
-                            },
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(10)),
-                          child: Image.network(
-                            eventAcademicList[1]['gambar_banner'],
-                            height: 210,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        child: Image.network(
+                          eventAcademicList[1]['gambar_banner'],
+                          height: 210,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Padding(
@@ -422,7 +411,9 @@ class HomePage extends StatelessWidget {
                                 minimumSize: Size(70.0, 40.0),
                                 primary: Color(0xFFD40808),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                // Aksi yang dijalankan saat tombol ditekan
+                              },
                               child: Text('Lainnya'),
                             ),
                           ),
@@ -449,22 +440,11 @@ class HomePage extends StatelessWidget {
                         child: Stack(
                           children: [
                             Positioned.fill(
-                              child: GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return BottomSheetWidget.showBottomSheet(
-                                          context);
-                                    },
-                                  );
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                  child: Image.network(
-                                    event['gambar_poster'],
-                                    fit: BoxFit.cover,
-                                  ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(14.0),
+                                child: Image.network(
+                                  event['gambar_poster'],
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -525,24 +505,14 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return BottomSheetWidget.showBottomSheet(context);
-                            },
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(10)),
-                          child: Image.network(
-                            eventList[0]['gambar_banner'],
-                            height: 210,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        child: Image.network(
+                          eventList[0]['gambar_banner'],
+                          height: 210,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Padding(
@@ -729,7 +699,7 @@ class HomePage extends StatelessWidget {
                                 primary: Color(0xFFD40808),
                               ),
                               onPressed: () {
-                                Navbar.navbarKey.currentState?.onTabTapped(1);
+                                // Aksi yang dijalankan saat tombol ditekan
                               },
                               child: Text('Lainnya'),
                             ),
@@ -781,24 +751,14 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return BottomSheetWidget.showBottomSheet(context);
-                            },
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(10)),
-                          child: Image.network(
-                            eventNonAcademicList[1]['gambar_banner'],
-                            height: 210,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(10)),
+                        child: Image.network(
+                          eventNonAcademicList[1]['gambar_banner'],
+                          height: 210,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Padding(

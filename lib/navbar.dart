@@ -26,8 +26,6 @@ class NavBar extends StatelessWidget {
 }
 
 class Navbar extends StatefulWidget {
-  static final GlobalKey<_NavbarState> navbarKey = GlobalKey<_NavbarState>();
-
   const Navbar({Key? key}) : super(key: key);
 
   @override
