@@ -30,7 +30,7 @@ class HomePageController extends GetxController {
         final data = jsonDecode(result.body);
         List listBanner = data['banner'];
         listBanner.forEach((element) {
-          _listBanner.add('${URL.BASE_URL}/${element}');
+          _listBanner.add('${URL.BASE_URL}${element}');
         });
       } else {
         throw Exception('Gagal mengambil data');
