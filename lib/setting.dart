@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tekno_expo/screen/login.dart';
 import 'package:tekno_expo/setting-parts.dart';
 import 'package:get/get.dart';
-import 'package:tekno_expo/controller/Account_controller.dart';
+import 'package:tekno_expo/controller/account_controller.dart';
 import 'package:tekno_expo/controller/user_controller.dart';
 
 class Setting extends StatefulWidget {
