@@ -10,6 +10,16 @@ class EventController extends GetxController {
   RxBool isError = false.obs;
   RxString errorMassage = ''.obs;
 
+  RxBool bottomSheetLoading = true.obs;
+  RxBool bottomSheetError = false.obs;
+  RxString bottomSheetErrorMassage = ''.obs;
+
+  RxBool daftarLoading = true.obs;
+  RxBool daftarError = false.obs;
+  RxString daftarErrorMassage = ''.obs;
+
+  RxList _listKategori = [].obs;
+
   final RxList<String> _listBanner = <String>[].obs;
   final RxList _listEvent = [].obs;
   final RxList _listEventAcademic = [].obs;
@@ -22,6 +32,9 @@ class EventController extends GetxController {
   List get getListEvent => _listEvent;
   List get getListEvenAcademic => _listEventAcademic;
   List get getListEvenNonAcademic => _listEventNonAcademic;
+
+  bool get getIsLoadingBottomSheet => bottomSheetLoading.value;
+  List get getListKategori => _listKategori;
 
   @override
   void onInit() {
@@ -92,6 +105,59 @@ class EventController extends GetxController {
       errorMassage.value = e.toString();
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> getKategori(int id_event) async {
+    try {
+      // get Token
+      String? token = await Token.getToken();
+      if (token == null) {
+        token = '';
+      }
+
+      bottomSheetLoading.value = true;
+      final result = await http.get(
+          Uri.parse('${URL.BASE_URL}kategori/$id_event'),
+          headers: {'Authorization': 'Bearer ${token}}'});
+      if (result.statusCode == 200) {
+        final data = jsonDecode(result.body);
+        _listKategori.value = data;
+      } else {
+        throw Exception('Gagal mengambil data');
+      }
+    } catch (e) {
+      bottomSheetError.value = true;
+      bottomSheetErrorMassage.value = e.toString();
+    } finally {
+      bottomSheetLoading.value = false;
+    }
+  }
+
+  void daftarKategori(int idKategori) async {
+    try {
+      // get Token
+      String? token = await Token.getToken();
+      if (token == null) {
+        token = '';
+      }
+
+      daftarLoading.value = true;
+      final result = await http.get(
+          Uri.parse('${URL.BASE_URL}kategori/daftarkategori/$idKategori'),
+          headers: {'Authorization': 'Bearer ${token}}'});
+      if (result.statusCode == 200) {
+        final data = jsonDecode(result.body);
+        // make snackbar
+        Get.snackbar('Berhasil', data['message']);
+      } else {
+        throw Exception('Gagal mengambil data');
+      }
+    } catch (e) {
+      daftarError.value = true;
+      daftarErrorMassage.value = e.toString();
+    } finally {
+      daftarLoading.value = false;
     }
   }
 }

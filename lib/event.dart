@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tekno_expo/controller/event_controller.dart';
+import 'package:get/get.dart';
 
-class Event extends StatelessWidget {
+class Event extends StatefulWidget {
+  @override
+  State<Event> createState() => _EventState();
+}
+
+class _EventState extends State<Event> {
+  final EventController eventController = Get.put(EventController());
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -9,351 +18,61 @@ class Event extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Sen',
       ),
-      home: EventPage(),
+      home: Obx(() {
+        if (!eventController.getIsLoading) {
+          return EventPage();
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
     );
   }
 }
 
 class EventPage extends StatelessWidget {
-  final List<String> cardData =
-      List.generate(10, (index) => 'Card ${index + 1}');
-  final List<String> cardData2 =
-      List.generate(10, (index) => 'New Card ${index + 1}');
+  EventController eventController = Get.find();
 
-  void BottomSheet(BuildContext context) {
+  final List<String> cardData = List.generate(
+      Get.find<EventController>().getListEvenAcademic.length,
+      (index) =>
+          '${Get.find<EventController>().getListEvenAcademic[index]['nama_event']}}');
+
+  final List<String> cardData2 = List.generate(
+      Get.find<EventController>().getListEvenNonAcademic.length,
+      (index) =>
+          '${Get.find<EventController>().getListEvenNonAcademic[index]['nama_event']}}');
+
+  void BottomSheet(
+      BuildContext context, int id_event, bool academic, int index_event) {
+    EventController eventController = Get.find();
+    eventController.getKategori(id_event);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.5,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 13),
-                  height: 6.0,
-                  width: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 90, 88, 88),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+        return Obx(() {
+          if (!eventController.getIsLoadingBottomSheet) {
+            return BottomSheetWidget(academic, index_event);
+          } else {
+            return Container(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.5,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
                 ),
-                Text(
-                  'Seminar Pendidikan',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        selectedColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        title: Text('Item ${index + 1}'),
-                        subtitle: Text('10 Per 40 Orang'),
-                        leading: Icon(Icons.info),
-                        trailing: Icon(Icons.arrow_forward),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                contentPadding: EdgeInsets.all(2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(16),
-                                    bottomLeft: Radius.circular(16),
-                                  ),
-                                ),
-                                backgroundColor:
-                                    Color.fromARGB(255, 255, 255, 255),
-                                content: Container(
-                                  width: 350.0,
-                                  height: 450.0,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.all(8),
-                                            alignment: Alignment.topLeft,
-                                            width: 300 * 0.5,
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: Colors.black,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Image.asset(
-                                                  'assets/images/desainweb.jpg',
-                                                  fit: BoxFit.cover),
-                                            ),
-                                          ),
-                                          Column(
-                                            children: [
-                                              SizedBox(height: 10),
-                                              Container(
-                                                margin: EdgeInsets.all(4),
-                                                width: 300 * 0.5,
-                                                child: Text(
-                                                  "Desain Web",
-                                                  maxLines: 5,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.all(4),
-                                                width: 300 * 0.5,
-                                                child: Text(
-                                                  "abdasdakjbdadab adubadbabudakbuaol ifa,fjbakbakf kefakfakfafu vkafakfevajfakvfuavfakuf kavkfvakufvaufuafuauvkf faegksf eufkabfa",
-                                                  maxLines: 5,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style:
-                                                      TextStyle(fontSize: 16),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        alignment: Alignment.topLeft,
-                                        width: 330,
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            // color: Colors.brown,
-                                            ),
-                                        child: Column(
-                                          children: [
-                                            Divider(
-                                              color: Colors.black,
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'Details Perlombaan',
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style:
-                                                      TextStyle(fontSize: 16),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(height: 10),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Event',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      'Cabang Perlombaan',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      'Tanggal Pendaftaran',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      'Tanggal Mulai',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      'Tanggal Penyisihan',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      'Tanggal Final',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      'Status Pendaftaran',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      width: 145,
-                                                      child: Text(
-                                                        ':  Protek svhkabs kvjabva hbvakjbh',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 16),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 145,
-                                                      child: Text(
-                                                        ':  Desain Web',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 16),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      ':  01-05-2023',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      ':  10-05-2023',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      ':  15-05-2023',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      ':  20-05-2023',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                    Text(
-                                                      ':  ? terdaftar : -',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                          fontSize: 16),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                actions: [
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                        fixedSize: MaterialStatePropertyAll(
-                                            Size(100, 40)),
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Color.fromARGB(
-                                                    255, 175, 29, 29))),
-                                    onPressed: () {},
-                                    child: Text(
-                                      "Daftar",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+              ),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
       },
     );
   }
@@ -414,7 +133,7 @@ class EventPage extends StatelessWidget {
             ),
             itemCount: cardData.length,
             itemBuilder: (context, index) {
-              return buildCard(context, cardData[index]);
+              return buildCard(context, cardData[index], index);
             },
           ),
         ),
@@ -422,7 +141,7 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget buildCard(BuildContext context, String data) {
+  Widget buildCard(BuildContext context, String data, int index) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -455,7 +174,12 @@ class EventPage extends StatelessWidget {
               right: 6,
               child: GestureDetector(
                 onTap: () {
-                  BottomSheet(context);
+                  BottomSheet(
+                      context,
+                      int.parse(eventController.getListEvenAcademic[index]
+                          ['id_event']),
+                      true,
+                      index);
                 },
                 child: Container(
                   height: 210,
@@ -479,8 +203,9 @@ class EventPage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox.fromSize(
-                      child: Image.asset(
-                        'assets/images/seminar-pendidikan.jpg',
+                      child: Image.network(
+                        eventController.getListEvenAcademic[index]
+                            ['gambar_poster'],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -499,7 +224,7 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      'Seminar Pendidikan',
+                      eventController.getListEvenAcademic[index]['nama_event'],
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -513,7 +238,7 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      '24 May 2024',
+                      eventController.getListEvenAcademic[index]['tanggal'],
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.yellowAccent,
@@ -545,9 +270,9 @@ class EventPage extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisExtent: 300,
             ),
-            itemCount: cardData.length,
+            itemCount: cardData2.length,
             itemBuilder: (context, index) {
-              return buildCard2(context, cardData2[index]);
+              return buildCard2(context, cardData2[index], index);
             },
           ),
         ),
@@ -555,7 +280,7 @@ class EventPage extends StatelessWidget {
     );
   }
 
-  Widget buildCard2(BuildContext context, String data) {
+  Widget buildCard2(BuildContext context, String data, int index) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -588,7 +313,12 @@ class EventPage extends StatelessWidget {
               right: 6,
               child: GestureDetector(
                 onTap: () {
-                  BottomSheet(context);
+                  BottomSheet(
+                      context,
+                      int.parse(eventController.getListEvenNonAcademic[index]
+                          ['id_event']),
+                      false,
+                      index);
                 },
                 child: Container(
                   height: 210,
@@ -612,8 +342,9 @@ class EventPage extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox.fromSize(
-                      child: Image.asset(
-                        'assets/images/desainweb.jpg',
+                      child: Image.network(
+                        eventController.getListEvenNonAcademic[index]
+                            ['gambar_poster'],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -632,7 +363,8 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      'Desain Web',
+                      eventController.getListEvenNonAcademic[index]
+                          ['nama_event'],
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -646,7 +378,7 @@ class EventPage extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10),
                     width: double.infinity,
                     child: Text(
-                      '24 May 2024',
+                      eventController.getListEvenNonAcademic[index]['tanggal'],
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.yellowAccent,
@@ -661,6 +393,370 @@ class EventPage extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+// Make Widget BottomSheet
+class BottomSheetWidget extends StatefulWidget {
+  final bool academic;
+  final int index_event;
+
+  const BottomSheetWidget(
+    this.academic,
+    this.index_event,
+  );
+
+  @override
+  State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
+}
+
+class _BottomSheetWidgetState extends State<BottomSheetWidget> {
+  EventController eventController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.5,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 13),
+              height: 6.0,
+              width: 100.0,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 90, 88, 88),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            Text(
+              widget.academic ? 'Kategori Academic' : 'Kategori Non Academic',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: eventController.getListKategori.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    selectedColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    title: Text(
+                        '${eventController.getListKategori[index]['nama_kategori']}'),
+                    subtitle: Text(
+                        '${eventController.getListKategori[index]['jumlah_peserta']} Per ${eventController.getListKategori[index]['kapasitas']} Orang'),
+                    leading: Icon(Icons.info),
+                    trailing: Icon(Icons.arrow_forward),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.all(2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(16),
+                                bottomLeft: Radius.circular(16),
+                              ),
+                            ),
+                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                            content: Container(
+                              width: 350.0,
+                              height: 450.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.topLeft,
+                                        width: 300 * 0.5,
+                                        child: Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Image.network(
+                                            widget.academic
+                                                ? eventController
+                                                            .getListEvenAcademic[
+                                                        widget.index_event]
+                                                    ['gambar_poster']
+                                                : eventController
+                                                            .getListEvenNonAcademic[
+                                                        widget.index_event]
+                                                    ['gambar_poster'],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Column(
+                                        children: [
+                                          SizedBox(height: 10),
+                                          Container(
+                                            margin: EdgeInsets.all(4),
+                                            width: 300 * 0.5,
+                                            child: Text(
+                                              widget.academic
+                                                  ? eventController
+                                                              .getListEvenAcademic[
+                                                          widget.index_event]
+                                                      ['nama_event']
+                                                  : eventController
+                                                              .getListEvenNonAcademic[
+                                                          widget.index_event]
+                                                      ['nama_event'],
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.all(4),
+                                            width: 300 * 0.5,
+                                            child: Text(
+                                              widget.academic
+                                                  ? eventController
+                                                              .getListEvenAcademic[
+                                                          widget.index_event]
+                                                      ['keterangan']
+                                                  : eventController
+                                                              .getListEvenNonAcademic[
+                                                          widget.index_event]
+                                                      ['keterangan'],
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    width: 330,
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        // color: Colors.brown,
+                                        ),
+                                    child: Column(
+                                      children: [
+                                        Divider(
+                                          color: Colors.black,
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Details Perlombaan',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Event',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  'Cabang Perlombaan',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  'Tanggal Pendaftaran',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  'Tanggal Penyisihan',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  'Tanggal Final',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  'Status Pendaftaran',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: 145,
+                                                  child: Text(
+                                                    ':  ${widget.academic ? eventController.getListEvenAcademic[widget.index_event]['nama_event'] : eventController.getListEvenNonAcademic[widget.index_event]['nama_event']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style:
+                                                        TextStyle(fontSize: 16),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 145,
+                                                  child: Text(
+                                                    ':  ${eventController.getListKategori[index]['nama_kategori']}',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style:
+                                                        TextStyle(fontSize: 16),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  ':  ${eventController.getListKategori[index]['pendaftaran']}',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  ':  ${eventController.getListKategori[index]['penyisihan']}',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  ':  ${eventController.getListKategori[index]['final']}',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                                Text(
+                                                  ':  ${eventController.getListKategori[index]['sudah_daftar'] ? 'Sudah Daftar' : 'Belum Daftar'}',
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    fixedSize:
+                                        MaterialStatePropertyAll(Size(100, 40)),
+                                    backgroundColor: eventController
+                                                .getListKategori[index]
+                                            ['sudah_daftar']
+                                        ? MaterialStatePropertyAll(
+                                            Color.fromARGB(255, 88, 85, 85))
+                                        : MaterialStatePropertyAll(
+                                            Color.fromARGB(255, 175, 29, 29))),
+                                onPressed: eventController
+                                        .getListKategori[index]['sudah_daftar']
+                                    ? () {}
+                                    : () {
+                                        eventController.daftarKategori(
+                                            int.parse(eventController
+                                                    .getListKategori[index]
+                                                ['id_kategori']));
+                                      },
+                                child: Text(
+                                  "Daftar",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
