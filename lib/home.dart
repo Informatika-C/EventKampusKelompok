@@ -6,13 +6,8 @@ import 'package:tekno_expo/controller/user_controller.dart';
 import 'navbar.dart';
 import 'event.dart';
 // import 'menu/menu1.dart';
-import 'menu/menu2.dart';
-import 'menu/menu3.dart';
-import 'menu/menu4.dart';
-import 'menu/menu5.dart';
-import 'menu/menu6.dart';
-import 'menu/menu7.dart';
-import 'menu/menu8.dart';
+import 'menu/peserta.dart';
+import 'menu/history.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -41,7 +36,7 @@ class HomePage extends StatelessWidget {
   HomePageController homePageController = Get.find();
 
   final List<String> menuNames = [
-    "User's",
+    "Peserta",
     "Event",
     "History",
   ];
@@ -212,7 +207,7 @@ class HomePage extends StatelessWidget {
                       child: CarouselSlider(
                         options: CarouselOptions(
                           reverse: true,
-                          height: 70,
+                          height: 50,
                           enableInfiniteScroll: true,
                           autoPlay: true,
                           // autoPlayInterval: Duration(milliseconds: 500),
@@ -222,9 +217,9 @@ class HomePage extends StatelessWidget {
                             color: Colors.red,
                             child: Center(
                               child: Text(
-                                'Carousel 1',
+                                'UKMI',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -234,9 +229,9 @@ class HomePage extends StatelessWidget {
                             color: Colors.blue,
                             child: Center(
                               child: Text(
-                                'Carousel 2',
+                                'Protek',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -246,9 +241,9 @@ class HomePage extends StatelessWidget {
                             color: Colors.green,
                             child: Center(
                               child: Text(
-                                'Carousel 3',
+                                'Robotik',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -260,7 +255,7 @@ class HomePage extends StatelessWidget {
                     Expanded(
                       child: CarouselSlider(
                         options: CarouselOptions(
-                          height: 70,
+                          height: 50,
                           enableInfiniteScroll: true,
                           autoPlay: true,
                         ),
@@ -269,9 +264,9 @@ class HomePage extends StatelessWidget {
                             color: Colors.orange,
                             child: Center(
                               child: Text(
-                                'Carousel A',
+                                'Musik',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -281,21 +276,21 @@ class HomePage extends StatelessWidget {
                             color: Colors.purple,
                             child: Center(
                               child: Text(
-                                'Carousel B',
+                                'Voly',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
                             ),
                           ),
                           Container(
-                            color: Colors.yellow,
+                            color: Colors.cyan,
                             child: Center(
                               child: Text(
-                                'Carousel C',
+                                'English',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -307,6 +302,7 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 10),
               Container(
                 padding: EdgeInsets.all(10),
                 height: 300,
@@ -810,12 +806,13 @@ class HomePage extends StatelessWidget {
   void navigateToPage(BuildContext context, int index) {
     switch (index) {
       case 0:
+        Get.to(PesertaPage());
         break;
       case 1:
-        Get.to(Menu2Page());
+        Get.to(EventPage());
         break;
       case 2:
-        Get.to(Menu3Page());
+        Get.to(HistoryPage());
         break;
     }
   }
