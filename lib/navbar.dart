@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'setting.dart';
 import 'home.dart';
 import 'event.dart';
+import 'addEvent.dart';
 import 'routes/update.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,8 +27,6 @@ class NavBar extends StatelessWidget {
 }
 
 class Navbar extends StatefulWidget {
-  static final GlobalKey<_NavbarState> navbarKey = GlobalKey<_NavbarState>();
-
   const Navbar({Key? key}) : super(key: key);
 
   @override
@@ -43,6 +42,7 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
     Home(),
     Event(),
     Setting(),
+    EventForm(),
   ];
 
   void onTabTapped(int index) {
@@ -79,6 +79,10 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
                 GButton(
                   icon: Icons.person,
                   text: "Profile",
+                ),
+                GButton(
+                  icon: Icons.add,
+                  text: "Add",
                 ),
               ]),
         );
