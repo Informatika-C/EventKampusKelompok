@@ -5,25 +5,25 @@ import 'package:tekno_expo/utils/url.dart';
 import 'dart:convert';
 import 'package:tekno_expo/utils/token.dart';
 
-class PesertaController extends GetxController {
+class HistoryController extends GetxController {
   RxBool isLoading = true.obs;
   RxBool isError = false.obs;
   RxString errorMassage = ''.obs;
 
-  RxList _listPeserta = [].obs;
-
   bool get getIsLoading =>
       isLoading.value || Get.find<UserController>().isLoading.value;
 
-  List get getListPeserta => _listPeserta;
+  RxList _listHistory = [].obs;
+
+  List get getListHistory => _listHistory;
 
   @override
   void onInit() {
     super.onInit();
-    getPeserta();
+    getHistory();
   }
 
-  Future<void> getPeserta() async {
+  Future<void> getHistory() async {
     try {
       // get Token
       String? token = await Token.getToken();
@@ -32,13 +32,19 @@ class PesertaController extends GetxController {
       }
 
       isLoading.value = true;
-      final result = await http.get(Uri.parse('${URL.BASE_URL}peserta'),
+      final result = await http.get(Uri.parse('${URL.BASE_URL}user/history'),
           headers: {'Authorization': 'Bearer ${token}}'});
       if (result.statusCode == 200) {
         final data = jsonDecode(result.body);
-        _listPeserta.value = data;
+        _listHistory.value = data;
+
+        for (var i = 0; i < _listHistory.length; i++) {
+          _listHistory[i]['gambar_poster'] =
+              '${URL.BASE_URL}${_listHistory[i]['gambar_poster']}';
+        }
+
         // reverse list
-        _listPeserta = _listPeserta.reversed.toList().obs;
+        _listHistory = _listHistory.reversed.toList().obs;
       } else {
         throw Exception('Gagal mengambil data');
       }
