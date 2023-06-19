@@ -37,7 +37,6 @@ class PesertaController extends GetxController {
       if (result.statusCode == 200) {
         final data = jsonDecode(result.body);
         _listPeserta.value = data;
-        print(_listPeserta);
       } else {
         throw Exception('Gagal mengambil data');
       }

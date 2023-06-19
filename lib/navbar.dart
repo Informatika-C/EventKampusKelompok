@@ -8,6 +8,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'controller/user_controller.dart';
+import 'controller/navbar_controller.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -35,8 +36,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
   UserController userController = Get.put(UserController());
-
-  int _currentIndex = 0;
+  NavbarController navBarController = Get.put(NavbarController());
 
   final List<Widget> _children = [
     Home(),
@@ -45,21 +45,17 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
     EventForm(),
   ];
 
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       if (!userController.isLoading.value) {
         return Scaffold(
-          body: _children[_currentIndex],
+          body: _children[navBarController.index.value],
           bottomNavigationBar: GNav(
-              selectedIndex: _currentIndex,
-              onTabChange: onTabTapped,
+              selectedIndex: navBarController.index.value,
+              onTabChange: (index) {
+                navBarController.changeIndex(index);
+              },
               backgroundColor: Color(0xFF001431),
               color: Colors.white,
               activeColor: Color(0xFFD40808),

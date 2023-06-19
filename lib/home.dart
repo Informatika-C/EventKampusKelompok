@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
+import 'package:tekno_expo/controller/navbar_controller.dart';
 import 'package:tekno_expo/controller/homePage_controller.dart';
 import 'package:tekno_expo/controller/user_controller.dart';
 import 'navbar.dart';
@@ -34,6 +35,7 @@ class _HomeState extends State<Home> {
 
 class HomePage extends StatelessWidget {
   HomePageController homePageController = Get.find();
+  NavbarController navbarController = Get.put(NavbarController());
 
   final List<String> menuNames = [
     "Peserta",
@@ -808,7 +810,7 @@ class HomePage extends StatelessWidget {
         Get.to(PesertaPage());
         break;
       case 1:
-        Get.to(EventPage());
+        navbarController.changeIndex(1);
         break;
       case 2:
         Get.to(HistoryPage());
