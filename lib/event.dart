@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tekno_expo/controller/event_controller.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Event extends StatefulWidget {
   @override
@@ -413,10 +414,13 @@ class BottomSheetWidget extends StatefulWidget {
 
 class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   EventController eventController = Get.find();
+  final GlobalKey<State> _dialogKey = GlobalKey<State>();
+  final GlobalKey _containerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: _containerKey,
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.5,
       ),
@@ -442,7 +446,11 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
               ),
             ),
             Text(
-              widget.academic ? 'Kategori Academic' : 'Kategori Non Academic',
+              widget.academic
+                  ? eventController.getListEvenAcademic[widget.index_event]
+                      ['nama_event']
+                  : eventController.getListEvenNonAcademic[widget.index_event]
+                      ['nama_event'],
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -469,6 +477,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            key: _dialogKey,
                             contentPadding: EdgeInsets.all(2),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -718,33 +727,75 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                             ),
                             actions: [
                               ElevatedButton(
-                                style: ButtonStyle(
-                                    fixedSize:
-                                        MaterialStatePropertyAll(Size(100, 40)),
+                                  style: ButtonStyle(
+                                    fixedSize: MaterialStateProperty.all(
+                                        Size(100, 40)),
                                     backgroundColor: eventController
                                                 .getListKategori[index]
                                             ['sudah_daftar']
-                                        ? MaterialStatePropertyAll(
-                                            Color.fromARGB(255, 88, 85, 85))
-                                        : MaterialStatePropertyAll(
-                                            Color.fromARGB(255, 175, 29, 29))),
-                                onPressed: eventController
-                                        .getListKategori[index]['sudah_daftar']
-                                    ? () {}
-                                    : () {
-                                        eventController.daftarKategori(
-                                            int.parse(eventController
-                                                    .getListKategori[index]
-                                                ['id_kategori']));
-                                      },
-                                child: Text(
-                                  "Daftar",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                        ? MaterialStateProperty.all(
+                                            Color.fromARGB(255, 230, 10, 10))
+                                        : MaterialStateProperty.all(
+                                            Color.fromARGB(255, 29, 175, 31)),
                                   ),
-                                ),
-                              )
+                                  onPressed: eventController
+                                              .getListKategori[index]
+                                          ['sudah_daftar']
+                                      ? () {
+                                          eventController
+                                              .hapusDaftar(int.parse(
+                                                  eventController
+                                                          .getListKategori[
+                                                      index]['id_kategori']))
+                                              .then((value) {
+                                            Navigator.of(
+                                                    _dialogKey.currentContext!)
+                                                .pop();
+                                            Navigator.of(_containerKey
+                                                    .currentContext!)
+                                                .pop();
+                                            // make toast
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Berhasil Menghapus Pendafataran",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                backgroundColor: Colors.green,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          });
+                                        }
+                                      : () {
+                                          eventController
+                                              .daftarKategori(int.parse(
+                                                  eventController
+                                                          .getListKategori[
+                                                      index]['id_kategori']))
+                                              .then((value) {
+                                            Navigator.of(
+                                                    _dialogKey.currentContext!)
+                                                .pop();
+                                            Navigator.of(_containerKey
+                                                    .currentContext!)
+                                                .pop();
+                                            // make toast
+                                            Fluttertoast.showToast(
+                                                msg: "Berhasil mendaftar",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                backgroundColor: Colors.green,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                          });
+                                        },
+                                  child: Text(
+                                    eventController.getListKategori[index]
+                                            ['sudah_daftar']
+                                        ? 'Batal'
+                                        : 'Daftar',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ))
                             ],
                           );
                         },

@@ -134,7 +134,7 @@ class EventController extends GetxController {
     }
   }
 
-  void daftarKategori(int idKategori) async {
+  Future<void> daftarKategori(int idKategori) async {
     try {
       // get Token
       String? token = await Token.getToken();
@@ -148,8 +148,6 @@ class EventController extends GetxController {
           headers: {'Authorization': 'Bearer ${token}}'});
       if (result.statusCode == 200) {
         final data = jsonDecode(result.body);
-        // make snackbar
-        Get.snackbar('Berhasil', data['message']);
       } else {
         throw Exception('Gagal mengambil data');
       }
@@ -159,5 +157,24 @@ class EventController extends GetxController {
     } finally {
       daftarLoading.value = false;
     }
+  }
+
+  Future<void> hapusDaftar(int idKategori) async {
+    try {
+      // get Token
+      String? token = await Token.getToken();
+      if (token == null) {
+        token = '';
+      }
+
+      final result = await http.delete(
+          Uri.parse('${URL.BASE_URL}kategori/deletedaftarkategori/$idKategori'),
+          headers: {'Authorization': 'Bearer ${token}}'});
+      if (result.statusCode == 200) {
+        final data = jsonDecode(result.body);
+      } else {
+        throw Exception('Gagal mengambil data');
+      }
+    } catch (e) {}
   }
 }
