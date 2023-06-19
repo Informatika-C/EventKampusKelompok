@@ -19,6 +19,12 @@ class _HomeState extends State<Home> {
   HomePageController homePageController = Get.put(HomePageController());
 
   @override
+  void dispose() {
+    Get.delete<HomePageController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {

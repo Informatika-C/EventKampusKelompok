@@ -12,6 +12,12 @@ class _EventState extends State<Event> {
   final EventController eventController = Get.put(EventController());
 
   @override
+  void dispose() {
+    Get.delete<EventController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Event',

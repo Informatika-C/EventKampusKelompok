@@ -9,6 +9,7 @@ import 'package:tekno_expo/controller/account_controller.dart';
 import 'package:tekno_expo/controller/user_controller.dart';
 import 'package:tekno_expo/controller/homepage_controller.dart';
 import 'package:tekno_expo/controller/event_controller.dart';
+import 'package:tekno_expo/controller/history_controller.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -40,6 +41,13 @@ class P extends StatefulWidget {
 
 class _PState extends State<P> with SingleTickerProviderStateMixin {
   AccountController accountController = Get.find();
+  HistoryController historyController = Get.put(HistoryController());
+
+  @override
+  void dispose() {
+    Get.delete<HistoryController>();
+    super.dispose();
+  }
 
   void logout() async {
     try {
@@ -84,147 +92,6 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> TabEvent = [
-      Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Nama Event",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Cabang Lomba",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Tanggal Mulai",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Tanggal Penyisihan",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Tanggal Selesai",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 150,
-                      child: Text(
-                        ":  Gebyar Islami",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: 150,
-                      child: Text(
-                        ":  Design Web",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      ":  10 May 2024",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      ":  15 May 2024",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      ":  20 May 2024",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    ];
-
     final List<Widget> TabSetting = [
       TextButton(
         onPressed: () {
@@ -539,11 +406,39 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                       children: [
                         Container(
                           child: Visibility(
-                            visible: showTabEvent,
-                            child: Column(
-                              children: TabEvent,
-                            ),
-                          ),
+                              visible: showTabEvent,
+                              child: Obx(() {
+                                if (historyController.getIsLoading) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: Center(
+                                        child: CircularProgressIndicator()),
+                                  );
+                                }
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      historyController.getListHistory.length,
+                                  itemBuilder: (context, index) {
+                                    return ListEvent(
+                                      namaEvent: historyController
+                                          .getListHistory[index]['nama_event'],
+                                      cabangLomba: historyController
+                                              .getListHistory[index]
+                                          ['nama_kategori'],
+                                      tanggalPendaftaran: historyController
+                                              .getListHistory[index]
+                                          ['tanggal_pendaftaran'],
+                                      tanggalPenyisihan: historyController
+                                              .getListHistory[index]
+                                          ['tanggal_penyisihan'],
+                                      tanggalFinal: historyController
+                                              .getListHistory[index]
+                                          ['tanggal_final'],
+                                    );
+                                  },
+                                );
+                              })),
                         ),
                         Container(
                           child: Visibility(
@@ -561,6 +456,164 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ListEvent extends StatelessWidget {
+  final String namaEvent;
+  final String cabangLomba;
+  final String tanggalPendaftaran;
+  final String tanggalPenyisihan;
+  final String tanggalFinal;
+
+  const ListEvent(
+      {super.key,
+      required this.namaEvent,
+      required this.cabangLomba,
+      required this.tanggalPendaftaran,
+      required this.tanggalPenyisihan,
+      required this.tanggalFinal});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Nama Event",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Cabang Lomba",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Tanggal Pendaftaran",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Tanggal Penyisihan",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Tanggal Final",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 150,
+                    child: Text(
+                      ":  ${namaEvent}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 150,
+                    child: Text(
+                      ":  ${cabangLomba}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    ":  ${tanggalPendaftaran}",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    ":  ${tanggalPenyisihan}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    ":  ${tanggalFinal}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
