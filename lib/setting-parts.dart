@@ -5,6 +5,7 @@ import 'package:tekno_expo/controller/user_controller.dart';
 
 class AccountParts extends StatelessWidget {
   AccountController accountController = Get.find();
+  UserController userController = Get.find();
 
   final bool isExpanded;
 
@@ -40,7 +41,6 @@ class AccountParts extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         String newName = '';
-                        String password = '';
 
                         return AlertDialog(
                           title: Text('Change Name'),
@@ -55,16 +55,6 @@ class AccountParts extends StatelessWidget {
                                   newName = value;
                                 },
                               ),
-                              SizedBox(height: 8),
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: 'Confirm your password',
-                                ),
-                                onChanged: (value) {
-                                  password = value;
-                                },
-                              ),
                             ],
                           ),
                           actions: [
@@ -76,10 +66,36 @@ class AccountParts extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                // Logika perubahan nama dan password
-                                // Gunakan variabel newName dan password
-                                // ...
                                 Navigator.pop(context);
+                                if (newName != '') {
+                                  userController
+                                      .updateName(newName)
+                                      .then((result) {
+                                    if (result) {
+                                      Get.snackbar(
+                                        'Success',
+                                        'Name updated successfully',
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white,
+                                      );
+                                    } else {
+                                      Get.snackbar(
+                                        'Error',
+                                        'Failed to update name',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  });
+                                } else {
+                                  // make toast
+                                  Get.snackbar(
+                                    'Error',
+                                    'Name cannot be empty',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                }
                               },
                               child: Text('Save'),
                             ),
@@ -116,7 +132,6 @@ class AccountParts extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         String newEmail = '';
-                        String password = '';
 
                         return AlertDialog(
                           title: Text('Change Email'),
@@ -131,14 +146,96 @@ class AccountParts extends StatelessWidget {
                                   newEmail = value;
                                 },
                               ),
-                              SizedBox(height: 8),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                if (newEmail != '') {
+                                  userController
+                                      .updateEmail(newEmail)
+                                      .then((result) {
+                                    if (result) {
+                                      Get.snackbar(
+                                        'Success',
+                                        'Email updated successfully',
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white,
+                                      );
+                                    } else {
+                                      Get.snackbar(
+                                        'Error',
+                                        'Failed to update email',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  });
+                                } else {
+                                  // make toast
+                                  Get.snackbar(
+                                    'Error',
+                                    'email cannot be empty',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                }
+                              },
+                              child: Text('Save'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Icon(Icons.change_circle),
+                ),
+              ],
+            ),
+          ),
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 180,
+                  child: Text(
+                    'NPM  : ${Get.find<UserController>().user.value.npm}',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        String newNPM = '';
+
+                        return AlertDialog(
+                          title: Text('Change NPM'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
                               TextFormField(
-                                obscureText: true,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  hintText: 'Confirm your password',
+                                  hintText: 'Enter your new NPM',
                                 ),
                                 onChanged: (value) {
-                                  password = value;
+                                  newNPM = value;
                                 },
                               ),
                             ],
@@ -152,8 +249,48 @@ class AccountParts extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                // Logika perubahan Email
                                 Navigator.pop(context);
+
+                                // check if newNPM is not number
+                                if (isNumeric(newNPM) == false) {
+                                  Get.snackbar(
+                                    'Error',
+                                    'NPM must be a number',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                  return;
+                                }
+
+                                if (newNPM != '') {
+                                  userController
+                                      .updateNPM(newNPM)
+                                      .then((result) {
+                                    if (result) {
+                                      Get.snackbar(
+                                        'Success',
+                                        'NPM updated successfully',
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white,
+                                      );
+                                    } else {
+                                      Get.snackbar(
+                                        'Error',
+                                        'Failed to update NPM',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  });
+                                } else {
+                                  // make toast
+                                  Get.snackbar(
+                                    'Error',
+                                    'NPM cannot be empty',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                }
                               },
                               child: Text('Save'),
                             ),
@@ -185,7 +322,6 @@ class AccountParts extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         String newPhone = '';
-                        String password = '';
 
                         return AlertDialog(
                           title: Text('Change Phone Number'),
@@ -193,21 +329,12 @@ class AccountParts extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextFormField(
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: 'Enter your new Phone',
                                 ),
                                 onChanged: (value) {
                                   newPhone = value;
-                                },
-                              ),
-                              SizedBox(height: 8),
-                              TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: 'Confirm your password',
-                                ),
-                                onChanged: (value) {
-                                  password = value;
                                 },
                               ),
                             ],
@@ -221,8 +348,48 @@ class AccountParts extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                // Logika perubahan Email
                                 Navigator.pop(context);
+
+                                // check if newPhone not number
+                                if (isNumeric(newPhone) == false) {
+                                  Get.snackbar(
+                                    'Error',
+                                    'Phone must be number',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                  return;
+                                }
+
+                                if (newPhone != '') {
+                                  userController
+                                      .updatePhone(newPhone)
+                                      .then((result) {
+                                    if (result) {
+                                      Get.snackbar(
+                                        'Success',
+                                        'Phone updated successfully',
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white,
+                                      );
+                                    } else {
+                                      Get.snackbar(
+                                        'Error',
+                                        'Failed to update Phone',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  });
+                                } else {
+                                  // make toast
+                                  Get.snackbar(
+                                    'Error',
+                                    'Phone cannot be empty',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                }
                               },
                               child: Text('Save'),
                             ),
@@ -292,6 +459,7 @@ class _NotificationPartsState extends State<NotificationParts> {
 
 class SecurityParts extends StatelessWidget {
   final bool isExpanded;
+  UserController userController = Get.find<UserController>();
 
   SecurityParts({required this.isExpanded});
 
@@ -356,8 +524,47 @@ class SecurityParts extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                // Logika perubahan Email
                                 Navigator.pop(context);
+                                if (newPassword != '' && password != '') {
+                                  // check newPassword length
+                                  if (newPassword.length < 8) {
+                                    Get.snackbar(
+                                      'Error',
+                                      'Password must be at least 8 characters',
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white,
+                                    );
+                                    return;
+                                  }
+
+                                  userController
+                                      .updatePassword(newPassword, password)
+                                      .then((result) {
+                                    if (result) {
+                                      Get.snackbar(
+                                        'Success',
+                                        'Password updated successfully',
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white,
+                                      );
+                                    } else {
+                                      Get.snackbar(
+                                        'Error',
+                                        'Failed to update Password',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                      );
+                                    }
+                                  });
+                                } else {
+                                  // make toast
+                                  Get.snackbar(
+                                    'Error',
+                                    'Password cannot be empty',
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                }
                               },
                               child: Text('Save'),
                             ),
@@ -375,4 +582,11 @@ class SecurityParts extends StatelessWidget {
       ),
     );
   }
+}
+
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.tryParse(s) != null;
 }

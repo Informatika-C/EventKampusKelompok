@@ -342,6 +342,23 @@ class _PState extends State<P> with SingleTickerProviderStateMixin {
                               ),
                             ),
                           ),
+                          ListTile(
+                            title: Text(
+                              'NPM',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${Get.find<UserController>().user.value.npm}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
